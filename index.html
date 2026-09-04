@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -18,10 +20,6 @@
 
 *{
     box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
 }
 
 body{
@@ -128,12 +126,6 @@ header p{
 
 }
 
-.tf-btn:hover{
-
-    background:#172033;
-
-}
-
 .tf-btn.active{
 
     background:#2563eb;
@@ -173,7 +165,7 @@ header p{
 
 }
 
-.status.closed{
+.status.warning{
 
     border-color:#854d0e;
 
@@ -224,7 +216,7 @@ header p{
 
 
 /* =========================================================
-   MAIN GRID
+   GRID
 ========================================================= */
 
 .grid{
@@ -277,7 +269,7 @@ header p{
 
 
 /* =========================================================
-   SIGNAL CARD
+   SIGNAL
 ========================================================= */
 
 .signal-card{
@@ -391,7 +383,7 @@ header p{
 
     font-size:14px;
 
-    line-height:1.75;
+    line-height:1.8;
 
 }
 
@@ -537,8 +529,8 @@ footer{
     </h1>
 
     <p>
-        Trend → Support / Resistance →
-        Breakout → Retest → Candle Confirmation
+        Trend → S/R → Breakout → Retest →
+        Candle Confirmation
     </p>
 
 </header>
@@ -623,20 +615,7 @@ footer{
     <iframe
         id="tvFrame"
 
-        src="
-        https://www.tradingview.com/widgetembed/
-        ?symbol=OANDA%3AXAUUSD
-        &interval=60
-        &hidesidetoolbar=0
-        &symboledit=0
-        &saveimage=0
-        &toolbarbg=0b1220
-        &studies=[]
-        &theme=dark
-        &style=1
-        &timezone=Asia%2FJakarta
-        &locale=id
-        "
+        src="https://www.tradingview.com/widgetembed/?symbol=OANDA%3AXAUUSD&interval=60&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&studies=[]&theme=dark&style=1&timezone=Asia%2FJakarta&locale=id"
 
         allowtransparency="true"
 
@@ -649,7 +628,7 @@ footer{
 
 
 <!-- ======================================================
-     DATA GRID
+     INFORMATION GRID
 ====================================================== -->
 
 <div class="grid">
@@ -728,7 +707,7 @@ footer{
 
 
 <!-- ======================================================
-     SIGNAL
+     SIGNAL CARD
 ====================================================== -->
 
 <div class="card signal-card">
@@ -737,12 +716,14 @@ footer{
         Trading Signal
     </div>
 
+
     <div
         id="signal"
         class="signal wait"
     >
         WAIT
     </div>
+
 
     <div
         id="score"
@@ -848,11 +829,14 @@ footer{
         Analisis
     </div>
 
+
     <div
         id="reason"
         class="reason-box"
     >
+
         Menunggu data candle...
+
     </div>
 
 </div>
@@ -867,18 +851,21 @@ footer{
 
 <div class="warning">
 
-    ⚠️ Sistem ini adalah scanner analisis teknikal.
-    BUY / SELL bukan jaminan profit.
-    Gunakan Stop Loss dan tunggu candle confirmation.
-    Jangan mengejar harga setelah bergerak terlalu jauh.
+    ⚠️ Sistem ini adalah alat analisis teknikal,
+    bukan jaminan profit.
+
+    Sinyal hanya berdasarkan candle yang sudah close,
+    struktur harga, support/resistance, breakout,
+    retest, moving average dan candle confirmation.
+
+    Selalu gunakan Stop Loss dan jangan mengejar harga.
 
 </div>
 
 
 <footer>
 
-    XAUUSD Smart Analyzer •
-    BiQuote XAUUSD API + TradingView
+    XAUUSD Smart Analyzer
 
 </footer>
 
@@ -890,122 +877,76 @@ footer{
 
 
 /* =========================================================
-   CONFIGURATION
+   API
 ========================================================= */
-
-
-/*
-   BiQuote menyediakan OHLC XAUUSD
-   secara langsung melalui endpoint ini.
-
-   Dokumentasi:
-   /api/{symbol}/ohlc
-
-   Tidak membutuhkan API key.
-*/
 
 const API_BASE =
     "https://biquote.io/api/XAUUSD/ohlc";
 
 
-/*
-   Timeframe yang sedang digunakan.
-*/
+/* =========================================================
+   STATE
+========================================================= */
 
 let currentTF =
     "1h";
 
-
-/*
-   Array candle.
-*/
-
-let candles =
+let rawCandles =
     [];
 
-
-/*
-   Analisis terakhir.
-*/
+let closedCandles =
+    [];
 
 let lastAnalysis =
     null;
 
 
 /* =========================================================
-   TIMEFRAME CONFIG
+   TIMEFRAME
 ========================================================= */
 
 const TF_CONFIG = {
 
-
     "1m":{
-
         api:"1m",
-
         tv:"1"
-
     },
-
 
     "5m":{
-
         api:"5m",
-
         tv:"5"
-
     },
-
 
     "15m":{
-
         api:"15m",
-
         tv:"15"
-
     },
-
 
     "30m":{
-
         api:"30m",
-
         tv:"30"
-
     },
-
 
     "1h":{
-
         api:"1h",
-
         tv:"60"
-
     },
-
 
     "4h":{
-
         api:"4h",
-
         tv:"240"
-
     },
 
-
     "1d":{
-
         api:"1d",
-
         tv:"D"
-
     }
 
 };
 
 
 /* =========================================================
-   ELEMENT HELPER
+   ELEMENT
 ========================================================= */
 
 function $(id){
@@ -1026,7 +967,7 @@ document
 
         button.addEventListener(
             "click",
-            () => {
+            function(){
 
 
                 document
@@ -1040,13 +981,13 @@ document
                     });
 
 
-                button.classList.add(
+                this.classList.add(
                     "active"
                 );
 
 
                 currentTF =
-                    button.dataset.tf;
+                    this.dataset.tf;
 
 
                 updateTradingView();
@@ -1054,10 +995,8 @@ document
 
                 loadData();
 
-
             }
         );
-
 
     });
 
@@ -1074,6 +1013,7 @@ function updateTradingView(){
 
 
     const url =
+
         "https://www.tradingview.com/widgetembed/" +
 
         "?symbol=OANDA%3AXAUUSD" +
@@ -1160,6 +1100,7 @@ async function loadData(){
 
 
         const url =
+
             API_BASE +
 
             "?interval=" +
@@ -1206,22 +1147,12 @@ async function loadData(){
 
 
         /*
-           BiQuote mengirim:
-
-           {
-             openTime,
-             open,
-             high,
-             low,
-             close,
-             volume,
-             tickVolume,
-             isOpen
-           }
+           Simpan SEMUA candle.
         */
 
+        rawCandles =
 
-        candles = data.bars
+            data.bars
 
             .map(c => ({
 
@@ -1269,38 +1200,40 @@ async function loadData(){
             );
 
 
-        if(candles.length < 60){
+        if(
+            rawCandles.length < 60
+        ){
 
             throw new Error(
-                "Data candle kurang dari 60"
+                "Candle kurang dari 60"
             );
 
         }
 
 
         /*
-           Pisahkan candle yang sudah close.
-
-           Candle terakhir bisa masih open.
+           HANYA candle yang sudah close
+           digunakan untuk sinyal.
         */
 
-        const closed =
-            candles.filter(
-                c => !c.isOpen
+        closedCandles =
+
+            rawCandles.filter(
+                c => c.isOpen !== true
             );
 
 
         /*
-           Untuk analisis kita gunakan
-           candle yang SUDAH CLOSE.
-
-           Ini membuat sinyal lebih stabil.
+           Jika API tidak menandai candle,
+           gunakan semua candle.
         */
 
-        if(closed.length >= 60){
+        if(
+            closedCandles.length < 60
+        ){
 
-            candles =
-                closed;
+            closedCandles =
+                rawCandles.slice();
 
         }
 
@@ -1308,36 +1241,55 @@ async function loadData(){
         analyze();
 
 
-        /*
-           Market status.
-        */
-
-        const latest =
-            await getMarketStatus();
+        const livePrice =
+            rawCandles[
+                rawCandles.length-1
+            ].close;
 
 
-        if(
-            latest &&
-            latest.marketState ===
-            "closed"
-        ){
+        const lastClosed =
+            closedCandles[
+                closedCandles.length-1
+            ];
+
+
+        const hasOpenCandle =
+            rawCandles[
+                rawCandles.length-1
+            ].isOpen === true;
+
+
+        if(hasOpenCandle){
 
             setStatus(
-                "🟡 MARKET CLOSED • " +
-                "Menampilkan candle terakhir",
-                "closed"
+
+                "🟢 Data aktif • " +
+
+                currentTF.toUpperCase() +
+
+                " • Sinyal berdasarkan candle CLOSED",
+
+                "ok"
+
             );
 
         }
         else{
 
             setStatus(
-                "✅ XAUUSD " +
+
+                "🟢 Data XAUUSD • " +
+
                 currentTF.toUpperCase() +
+
                 " • " +
-                candles.length +
-                " candle • Data aktif",
+
+                closedCandles.length +
+
+                " candle CLOSED",
+
                 "ok"
+
             );
 
         }
@@ -1348,68 +1300,25 @@ async function loadData(){
 
 
         console.error(
-            "XAUUSD API ERROR:",
             error
         );
 
 
         setStatus(
+
             "❌ Gagal mengambil data: " +
             error.message,
+
             "error"
+
         );
 
 
         $("reason").innerHTML =
 
-            "API XAUUSD tidak dapat dibaca saat ini.<br>" +
+            "❌ Data XAUUSD belum dapat dibaca.<br>" +
 
-            "Silakan coba refresh halaman atau ganti timeframe.";
-
-
-    }
-
-}
-
-
-/* =========================================================
-   MARKET STATUS
-========================================================= */
-
-async function getMarketStatus(){
-
-
-    try{
-
-
-        const response =
-            await fetch(
-                "https://biquote.io/api/XAUUSD",
-                {
-                    cache:"no-store"
-                }
-            );
-
-
-        if(!response.ok){
-
-            return null;
-
-        }
-
-
-        return await response.json();
-
-
-    }
-    catch(e){
-
-        console.warn(
-            "Market status error:",
-            e
-        );
-
-        return null;
+            "Silakan refresh halaman.";
 
     }
 
@@ -1454,9 +1363,7 @@ function SMA(
     }
 
 
-    return (
-        sum / period
-    );
+    return sum/period;
 
 }
 
@@ -1493,43 +1400,31 @@ function calculateATR(
     ){
 
 
-        const current =
+        const c =
             data[i];
 
 
-        const previous =
+        const p =
             data[i-1];
 
 
         const tr =
             Math.max(
 
-                current.high -
-                current.low,
+                c.high-c.low,
 
                 Math.abs(
-                    current.high -
-                    previous.close
+                    c.high-p.close
                 ),
 
                 Math.abs(
-                    current.low -
-                    previous.close
+                    c.low-p.close
                 )
 
             );
 
 
         trs.push(tr);
-
-    }
-
-
-    if(
-        trs.length < period
-    ){
-
-        return null;
 
     }
 
@@ -1541,11 +1436,9 @@ function calculateATR(
     return (
 
         last.reduce(
-            (a,b) => a+b,
+            (a,b)=>a+b,
             0
-        )
-        /
-        period
+        )/period
 
     );
 
@@ -1588,7 +1481,6 @@ function isSwingHigh(
 
         i++
     ){
-
 
         if(
 
@@ -1649,7 +1541,6 @@ function isSwingLow(
         i++
     ){
 
-
         if(
 
             low >=
@@ -1676,7 +1567,9 @@ function isSwingLow(
    GET SWINGS
 ========================================================= */
 
-function getSwings(data){
+function getSwings(
+    data
+){
 
 
     const highs = [];
@@ -1747,11 +1640,8 @@ function getSwings(data){
 
 
     return {
-
         highs,
-
         lows
-
     };
 
 }
@@ -1761,7 +1651,9 @@ function getSwings(data){
    TREND
 ========================================================= */
 
-function detectTrend(data){
+function detectTrend(
+    data
+){
 
 
     const swings =
@@ -1776,115 +1668,6 @@ function detectTrend(data){
         swings.lows;
 
 
-    if(
-
-        highs.length < 2 ||
-
-        lows.length < 2
-
-    ){
-
-        /*
-           Gunakan MA sebagai fallback.
-        */
-
-        const ma20 =
-            SMA(data,20);
-
-
-        const ma50 =
-            SMA(data,50);
-
-
-        if(
-            ma20 &&
-            ma50
-        ){
-
-            if(
-                ma20 > ma50
-            ){
-
-                return "UPTREND";
-
-            }
-
-
-            if(
-                ma20 < ma50
-            ){
-
-                return "DOWNTREND";
-
-            }
-
-        }
-
-
-        return "SIDEWAYS";
-
-    }
-
-
-    const previousHigh =
-        highs[
-            highs.length-2
-        ].price;
-
-
-    const latestHigh =
-        highs[
-            highs.length-1
-        ].price;
-
-
-    const previousLow =
-        lows[
-            lows.length-2
-        ].price;
-
-
-    const latestLow =
-        lows[
-            lows.length-1
-        ].price;
-
-
-    if(
-
-        latestHigh >
-        previousHigh &&
-
-        latestLow >
-        previousLow
-
-    ){
-
-        return "UPTREND";
-
-    }
-
-
-    if(
-
-        latestHigh <
-        previousHigh &&
-
-        latestLow <
-        previousLow
-
-    ){
-
-        return "DOWNTREND";
-
-    }
-
-
-    /*
-       Jika struktur belum jelas,
-       gunakan MA.
-    */
-
     const ma20 =
         SMA(data,20);
 
@@ -1893,14 +1676,49 @@ function detectTrend(data){
         SMA(data,50);
 
 
+    /*
+       Struktur utama.
+    */
+
     if(
-        ma20 &&
-        ma50
+
+        highs.length >= 2 &&
+
+        lows.length >= 2
+
     ){
 
+
+        const h1 =
+            highs[
+                highs.length-2
+            ].price;
+
+
+        const h2 =
+            highs[
+                highs.length-1
+            ].price;
+
+
+        const l1 =
+            lows[
+                lows.length-2
+            ].price;
+
+
+        const l2 =
+            lows[
+                lows.length-1
+            ].price;
+
+
         if(
-            ma20 >
-            ma50
+
+            h2 > h1 &&
+
+            l2 > l1
+
         ){
 
             return "UPTREND";
@@ -1909,8 +1727,40 @@ function detectTrend(data){
 
 
         if(
-            ma20 <
-            ma50
+
+            h2 < h1 &&
+
+            l2 < l1
+
+        ){
+
+            return "DOWNTREND";
+
+        }
+
+    }
+
+
+    /*
+       Fallback MA.
+    */
+
+    if(
+        ma20 &&
+        ma50
+    ){
+
+        if(
+            ma20 > ma50
+        ){
+
+            return "UPTREND";
+
+        }
+
+
+        if(
+            ma20 < ma50
         ){
 
             return "DOWNTREND";
@@ -1944,12 +1794,6 @@ function findSupportResistance(
         ].close;
 
 
-    /*
-       Support:
-       swing low yang berada
-       di bawah harga sekarang.
-    */
-
     const supports =
         swings.lows
 
@@ -1961,12 +1805,6 @@ function findSupportResistance(
             x => x < price
         );
 
-
-    /*
-       Resistance:
-       swing high yang berada
-       di atas harga sekarang.
-    */
 
     const resistances =
         swings.highs
@@ -2064,25 +1902,25 @@ function candlePattern(
     }
 
 
-    const previousBull =
+    const prevBull =
         previous.close >
         previous.open;
 
 
-    const currentBull =
+    const currBull =
         current.close >
         current.open;
 
 
     /*
-       BULLISH ENGULFING
+       ENGULFING
     */
 
     const bullishEngulfing =
 
-        !previousBull &&
+        !prevBull &&
 
-        currentBull &&
+        currBull &&
 
         current.open <=
         previous.close &&
@@ -2091,15 +1929,11 @@ function candlePattern(
         previous.open;
 
 
-    /*
-       BEARISH ENGULFING
-    */
-
     const bearishEngulfing =
 
-        previousBull &&
+        prevBull &&
 
-        !currentBull &&
+        !currBull &&
 
         current.open >=
         previous.close &&
@@ -2167,13 +2001,20 @@ function candlePattern(
     ){
 
 
+        /*
+           Bullish pin bar
+        */
+
         if(
 
             lowerWick >=
             body*2 &&
 
             lowerWick >=
-            range*0.50
+            range*0.50 &&
+
+            current.close >
+            current.open
 
         ){
 
@@ -2182,13 +2023,20 @@ function candlePattern(
         }
 
 
+        /*
+           Bearish pin bar
+        */
+
         if(
 
             upperWick >=
             body*2 &&
 
             upperWick >=
-            range*0.50
+            range*0.50 &&
+
+            current.close <
+            current.open
 
         ){
 
@@ -2199,9 +2047,7 @@ function candlePattern(
     }
 
 
-    if(
-        currentBull
-    ){
+    if(currBull){
 
         return "BULLISH";
 
@@ -2214,7 +2060,101 @@ function candlePattern(
 
 
 /* =========================================================
-   FIND RECENT BREAKOUT
+   DISTANCE %
+========================================================= */
+
+function distancePercent(
+    price,
+    level
+){
+
+    return Math.abs(
+        price-level
+    )/level;
+
+}
+
+
+/* =========================================================
+   PRICE NEAR SUPPORT
+========================================================= */
+
+function priceNearSupport(
+    price,
+    support,
+    atr
+){
+
+
+    const tolerance =
+        Math.max(
+
+            support*0.0015,
+
+            atr*0.60
+
+        );
+
+
+    return (
+
+        Math.abs(
+            price-support
+        ) <= tolerance
+
+        ||
+
+        (
+            price >= support &&
+            price <= support+tolerance
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   PRICE NEAR RESISTANCE
+========================================================= */
+
+function priceNearResistance(
+    price,
+    resistance,
+    atr
+){
+
+
+    const tolerance =
+        Math.max(
+
+            resistance*0.0015,
+
+            atr*0.60
+
+        );
+
+
+    return (
+
+        Math.abs(
+            price-resistance
+        ) <= tolerance
+
+        ||
+
+        (
+            price <= resistance &&
+            price >= resistance-tolerance
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   RECENT BREAKOUT
 ========================================================= */
 
 function findRecentBreakout(
@@ -2230,11 +2170,6 @@ function findRecentBreakout(
             data.length-lookback
         );
 
-
-    /*
-       Kita mencari breakout
-       dari candle yang sudah close.
-    */
 
     for(
         let i=start;
@@ -2252,6 +2187,11 @@ function findRecentBreakout(
         const current =
             data[i];
 
+
+        /*
+           Close harus benar-benar
+           menembus resistance.
+        */
 
         if(
 
@@ -2293,7 +2233,7 @@ function findRecentBreakout(
 
 
 /* =========================================================
-   FIND RECENT BREAKDOWN
+   RECENT BREAKDOWN
 ========================================================= */
 
 function findRecentBreakdown(
@@ -2326,6 +2266,11 @@ function findRecentBreakdown(
         const current =
             data[i];
 
+
+        /*
+           Close harus benar-benar
+           di bawah support.
+        */
 
         if(
 
@@ -2373,7 +2318,8 @@ function findRecentBreakdown(
 function findBreakoutRetest(
     data,
     breakoutIndex,
-    resistance
+    resistance,
+    maxBars=8
 ){
 
 
@@ -2386,17 +2332,13 @@ function findBreakoutRetest(
     }
 
 
-    /*
-       Cari maksimal 8 candle
-       setelah breakout.
-    */
-
     const end =
         Math.min(
 
             data.length-1,
 
-            breakoutIndex+8
+            breakoutIndex+
+            maxBars
 
         );
 
@@ -2417,36 +2359,37 @@ function findBreakoutRetest(
             data[i];
 
 
-        const range =
-            c.high-c.low;
-
-
         const tolerance =
             Math.max(
 
-                resistance*0.0008,
+                resistance*0.0015,
 
-                range*1.2
+                (c.high-c.low)*0.8
 
             );
 
+
+        /*
+           Harga menyentuh kembali
+           area resistance.
+        */
 
         const touched =
 
-            Math.abs(
-                c.low-resistance
-            ) <= tolerance
+            c.low <=
+            resistance+tolerance
 
-            ||
+            &&
 
-            (
-                c.low <=
-                resistance &&
+            c.high >=
+            resistance-tolerance;
 
-                c.high >=
-                resistance
-            );
 
+        /*
+           Setelah retest,
+           candle harus close
+           kembali di atas level.
+        */
 
         if(
 
@@ -2476,7 +2419,8 @@ function findBreakoutRetest(
 function findBreakdownRetest(
     data,
     breakdownIndex,
-    support
+    support,
+    maxBars=8
 ){
 
 
@@ -2494,7 +2438,8 @@ function findBreakdownRetest(
 
             data.length-1,
 
-            breakdownIndex+8
+            breakdownIndex+
+            maxBars
 
         );
 
@@ -2515,35 +2460,25 @@ function findBreakdownRetest(
             data[i];
 
 
-        const range =
-            c.high-c.low;
-
-
         const tolerance =
             Math.max(
 
-                support*0.0008,
+                support*0.0015,
 
-                range*1.2
+                (c.high-c.low)*0.8
 
             );
 
 
         const touched =
 
-            Math.abs(
-                c.high-support
-            ) <= tolerance
+            c.low <=
+            support+tolerance
 
-            ||
+            &&
 
-            (
-                c.low <=
-                support &&
-
-                c.high >=
-                support
-            );
+            c.high >=
+            support-tolerance;
 
 
         if(
@@ -2568,88 +2503,22 @@ function findBreakdownRetest(
 
 
 /* =========================================================
-   NEAR RESISTANCE
-========================================================= */
-
-function isNearResistance(
-    price,
-    resistance
-){
-
-
-    if(
-        price >= resistance
-    ){
-
-        return false;
-
-    }
-
-
-    const distance =
-        resistance-price;
-
-
-    return (
-
-        distance /
-        resistance
-
-    ) <= 0.0025;
-
-}
-
-
-/* =========================================================
-   NEAR SUPPORT
-========================================================= */
-
-function isNearSupport(
-    price,
-    support
-){
-
-
-    if(
-        price <= support
-    ){
-
-        return false;
-
-    }
-
-
-    const distance =
-        price-support;
-
-
-    return (
-
-        distance /
-        support
-
-    ) <= 0.0025;
-
-}
-
-
-/* =========================================================
    BULLISH CONFIRMATION
 ========================================================= */
 
-function isBullishConfirmation(
+function bullishConfirmation(
     pattern
 ){
 
     return (
 
         pattern ===
-        "BULLISH ENGULFING"
+        "BULLISH PIN BAR"
 
         ||
 
         pattern ===
-        "BULLISH PIN BAR"
+        "BULLISH ENGULFING"
 
     );
 
@@ -2660,19 +2529,19 @@ function isBullishConfirmation(
    BEARISH CONFIRMATION
 ========================================================= */
 
-function isBearishConfirmation(
+function bearishConfirmation(
     pattern
 ){
 
     return (
 
         pattern ===
-        "BEARISH ENGULFING"
+        "BEARISH PIN BAR"
 
         ||
 
         pattern ===
-        "BEARISH PIN BAR"
+        "BEARISH ENGULFING"
 
     );
 
@@ -2687,7 +2556,7 @@ function analyze(){
 
 
     if(
-        candles.length < 60
+        closedCandles.length < 60
     ){
 
         return;
@@ -2696,12 +2565,11 @@ function analyze(){
 
 
     /*
-       Gunakan maksimal
-       300 candle terbaru.
+       Gunakan 300 candle CLOSED terakhir.
     */
 
     const data =
-        candles.slice(-300);
+        closedCandles.slice(-300);
 
 
     const last =
@@ -2720,13 +2588,17 @@ function analyze(){
         last.close;
 
 
-    /* TREND */
+    /* =====================================================
+       TREND
+    ===================================================== */
 
     const trend =
         detectTrend(data);
 
 
-    /* SUPPORT / RESISTANCE */
+    /* =====================================================
+       SUPPORT RESISTANCE
+    ===================================================== */
 
     const sr =
         findSupportResistance(data);
@@ -2740,7 +2612,9 @@ function analyze(){
         sr.resistance;
 
 
-    /* MA */
+    /* =====================================================
+       MA
+    ===================================================== */
 
     const ma20 =
         SMA(data,20);
@@ -2750,7 +2624,9 @@ function analyze(){
         SMA(data,50);
 
 
-    /* ATR */
+    /* =====================================================
+       ATR
+    ===================================================== */
 
     const atr =
         calculateATR(
@@ -2759,7 +2635,16 @@ function analyze(){
         );
 
 
-    /* CANDLE */
+    if(!atr){
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       CANDLE
+    ===================================================== */
 
     const pattern =
         candlePattern(
@@ -2768,7 +2653,9 @@ function analyze(){
         );
 
 
-    /* BREAKOUT */
+    /* =====================================================
+       BREAKOUT
+    ===================================================== */
 
     const breakout =
         findRecentBreakout(
@@ -2778,7 +2665,9 @@ function analyze(){
         );
 
 
-    /* BREAKDOWN */
+    /* =====================================================
+       BREAKDOWN
+    ===================================================== */
 
     const breakdown =
         findRecentBreakdown(
@@ -2788,9 +2677,12 @@ function analyze(){
         );
 
 
-    /* RETEST */
+    /* =====================================================
+       RETEST
+    ===================================================== */
 
     const buyRetest =
+
         breakout.found
 
         ?
@@ -2798,7 +2690,8 @@ function analyze(){
         findBreakoutRetest(
             data,
             breakout.index,
-            resistance
+            resistance,
+            8
         )
 
         :
@@ -2807,6 +2700,7 @@ function analyze(){
 
 
     const sellRetest =
+
         breakdown.found
 
         ?
@@ -2814,7 +2708,8 @@ function analyze(){
         findBreakdownRetest(
             data,
             breakdown.index,
-            support
+            support,
+            8
         )
 
         :
@@ -2822,24 +2717,37 @@ function analyze(){
         false;
 
 
-    /* PRE BREAKOUT */
+    /* =====================================================
+       LOCATION
+    ===================================================== */
 
-    const preBreakout =
-        isNearResistance(
+    const nearSupport =
+        priceNearSupport(
             price,
-            resistance
+            support,
+            atr
         );
 
 
-    const preBreakdown =
-        isNearSupport(
+    const nearResistance =
+        priceNearResistance(
             price,
-            support
+            resistance,
+            atr
         );
 
 
     /* =====================================================
        SCORE
+       
+       MAKSIMAL 10
+
+       TREND              = 2
+       MA                 = 1
+       LOCATION           = 1
+       BREAKOUT/RETEST    = 3
+       CANDLE             = 2
+       MOMENTUM            = 1
     ===================================================== */
 
     let buyScore = 0;
@@ -2847,9 +2755,9 @@ function analyze(){
     let sellScore = 0;
 
 
-    /*
+    /* =====================================================
        TREND
-    */
+    ===================================================== */
 
     if(
         trend ===
@@ -2871,9 +2779,9 @@ function analyze(){
     }
 
 
-    /*
+    /* =====================================================
        MA
-    */
+    ===================================================== */
 
     if(
 
@@ -2901,41 +2809,82 @@ function analyze(){
     }
 
 
+    /* =====================================================
+       LOCATION
+    ===================================================== */
+
     /*
-       BREAKOUT
+       BUY hanya mendapatkan
+       location point jika dekat SUPPORT.
+
+       Tidak memberikan BUY point
+       ketika harga dekat resistance.
     */
+
+    if(
+
+        trend ===
+        "UPTREND" &&
+
+        nearSupport
+
+    ){
+
+        buyScore += 1;
+
+    }
+
+
+    /*
+       SELL hanya mendapatkan
+       location point jika dekat RESISTANCE.
+    */
+
+    if(
+
+        trend ===
+        "DOWNTREND" &&
+
+        nearResistance
+
+    ){
+
+        sellScore += 1;
+
+    }
+
+
+    /* =====================================================
+       BREAKOUT + RETEST
+    ===================================================== */
 
     if(
         breakout.found
     ){
 
-        buyScore += 3;
+        buyScore += 2;
 
     }
 
-
-    /*
-       BREAKDOWN
-    */
-
-    if(
-        breakdown.found
-    ){
-
-        sellScore += 3;
-
-    }
-
-
-    /*
-       RETEST
-    */
 
     if(
         buyRetest
     ){
 
-        buyScore += 2;
+        buyScore += 1;
+
+    }
+
+
+    /* =====================================================
+       BREAKDOWN + RETEST
+    ===================================================== */
+
+    if(
+        breakdown.found
+    ){
+
+        sellScore += 2;
 
     }
 
@@ -2944,17 +2893,17 @@ function analyze(){
         sellRetest
     ){
 
-        sellScore += 2;
+        sellScore += 1;
 
     }
 
 
-    /*
+    /* =====================================================
        CANDLE
-    */
+    ===================================================== */
 
     if(
-        isBullishConfirmation(
+        bullishConfirmation(
             pattern
         )
     ){
@@ -2965,7 +2914,7 @@ function analyze(){
 
 
     if(
-        isBearishConfirmation(
+        bearishConfirmation(
             pattern
         )
     ){
@@ -2975,13 +2924,16 @@ function analyze(){
     }
 
 
-    /*
-       PRE BREAKOUT
-    */
+    /* =====================================================
+       MOMENTUM
+    ===================================================== */
 
     if(
 
-        preBreakout &&
+        ma20 &&
+
+        price >
+        ma20 &&
 
         trend ===
         "UPTREND"
@@ -2993,13 +2945,12 @@ function analyze(){
     }
 
 
-    /*
-       PRE BREAKDOWN
-    */
-
     if(
 
-        preBreakdown &&
+        ma20 &&
+
+        price <
+        ma20 &&
 
         trend ===
         "DOWNTREND"
@@ -3009,6 +2960,24 @@ function analyze(){
         sellScore += 1;
 
     }
+
+
+    /*
+       Batasi score maksimal 10.
+    */
+
+    buyScore =
+        Math.min(
+            10,
+            buyScore
+        );
+
+
+    sellScore =
+        Math.min(
+            10,
+            sellScore
+        );
 
 
     /* =====================================================
@@ -3023,11 +2992,9 @@ function analyze(){
         "NO SETUP";
 
 
-    /*
-       ====================================================
+    /* =====================================================
        BUY BREAKOUT + RETEST
-       ====================================================
-    */
+    ===================================================== */
 
     if(
 
@@ -3038,7 +3005,7 @@ function analyze(){
 
         buyRetest &&
 
-        isBullishConfirmation(
+        bullishConfirmation(
             pattern
         ) &&
 
@@ -3059,59 +3026,22 @@ function analyze(){
     }
 
 
-    /*
-       ====================================================
-       BUY PRE-BREAKOUT
-       ====================================================
-    */
+    /* =====================================================
+       BUY SUPPORT
+    ===================================================== */
 
     else if(
 
         trend ===
         "UPTREND" &&
 
-        preBreakout &&
+        nearSupport &&
 
-        isBullishConfirmation(
+        bullishConfirmation(
             pattern
         ) &&
 
-        buyScore >= 5 &&
-
-        buyScore >
-        sellScore
-
-    ){
-
-        signal =
-            "BUY";
-
-
-        setup =
-            "PRE-BREAKOUT";
-
-    }
-
-
-    /*
-       ====================================================
-       BUY SUPPORT REJECTION
-       ====================================================
-    */
-
-    else if(
-
-        trend ===
-        "UPTREND" &&
-
-        isBullishConfirmation(
-            pattern
-        ) &&
-
-        price <=
-        support*1.003 &&
-
-        buyScore >= 5 &&
+        buyScore >= 7 &&
 
         buyScore >
         sellScore
@@ -3128,11 +3058,47 @@ function analyze(){
     }
 
 
-    /*
-       ====================================================
+    /* =====================================================
+       PRE-BREAKOUT
+       
+       HANYA status setup.
+       Tidak langsung BUY.
+    ===================================================== */
+
+    else if(
+
+        trend ===
+        "UPTREND" &&
+
+        nearResistance &&
+
+        price <
+        resistance &&
+
+        bullishConfirmation(
+            pattern
+        ) &&
+
+        buyScore >= 6 &&
+
+        buyScore >
+        sellScore
+
+    ){
+
+        signal =
+            "WAIT";
+
+
+        setup =
+            "PRE-BREAKOUT";
+
+    }
+
+
+    /* =====================================================
        SELL BREAKDOWN + RETEST
-       ====================================================
-    */
+    ===================================================== */
 
     else if(
 
@@ -3143,7 +3109,7 @@ function analyze(){
 
         sellRetest &&
 
-        isBearishConfirmation(
+        bearishConfirmation(
             pattern
         ) &&
 
@@ -3164,59 +3130,22 @@ function analyze(){
     }
 
 
-    /*
-       ====================================================
-       SELL PRE-BREAKDOWN
-       ====================================================
-    */
+    /* =====================================================
+       SELL RESISTANCE
+    ===================================================== */
 
     else if(
 
         trend ===
         "DOWNTREND" &&
 
-        preBreakdown &&
+        nearResistance &&
 
-        isBearishConfirmation(
+        bearishConfirmation(
             pattern
         ) &&
 
-        sellScore >= 5 &&
-
-        sellScore >
-        buyScore
-
-    ){
-
-        signal =
-            "SELL";
-
-
-        setup =
-            "PRE-BREAKDOWN";
-
-    }
-
-
-    /*
-       ====================================================
-       SELL RESISTANCE REJECTION
-       ====================================================
-    */
-
-    else if(
-
-        trend ===
-        "DOWNTREND" &&
-
-        isBearishConfirmation(
-            pattern
-        ) &&
-
-        price >=
-        resistance*0.997 &&
-
-        sellScore >= 5 &&
+        sellScore >= 7 &&
 
         sellScore >
         buyScore
@@ -3234,124 +3163,139 @@ function analyze(){
 
 
     /* =====================================================
+       PRE-BREAKDOWN
+       
+       HANYA jika:
+       DOWNTREND
+       +
+       harga benar-benar sudah di bawah support.
+    ===================================================== */
+
+    else if(
+
+        trend ===
+        "DOWNTREND" &&
+
+        price <
+        support &&
+
+        breakdown.found
+
+    ){
+
+        signal =
+            "WAIT";
+
+
+        setup =
+            "PRE-BREAKDOWN";
+
+    }
+
+
+    /* =====================================================
        ENTRY / SL / TP
     ===================================================== */
 
     let entry =
         null;
 
-
     let sl =
         null;
 
-
     let tp1 =
         null;
-
 
     let tp2 =
         null;
 
 
     if(
-        atr
+        signal ===
+        "BUY"
     ){
 
-
-        /*
-           BUY
-        */
-
-        if(
-            signal ===
-            "BUY"
-        ){
-
-
-            entry =
-                price;
-
-
-            sl =
-                Math.min(
-
-                    support -
-                    atr*0.15,
-
-                    price -
-                    atr*1.2
-
-                );
-
-
-            const risk =
-                entry-sl;
-
-
-            tp1 =
-                entry +
-                risk*1.5;
-
-
-            tp2 =
-                entry +
-                risk*2;
-
-
-        }
+        entry =
+            price;
 
 
         /*
-           SELL
+           SL di bawah support
+           tetapi tetap diberi
+           jarak ATR.
         */
 
-        if(
-            signal ===
-            "SELL"
-        ){
+        sl =
+            Math.min(
+
+                support -
+                atr*0.20,
+
+                price -
+                atr*1.20
+
+            );
 
 
-            entry =
-                price;
+        const risk =
+            entry-sl;
 
 
-            sl =
-                Math.max(
-
-                    resistance +
-                    atr*0.15,
-
-                    price +
-                    atr*1.2
-
-                );
+        tp1 =
+            entry +
+            risk*1.5;
 
 
-            const risk =
-                sl-entry;
+        tp2 =
+            entry +
+            risk*2;
 
 
-            tp1 =
-                entry -
-                risk*1.5;
+    }
 
 
-            tp2 =
-                entry -
-                risk*2;
+    if(
+        signal ===
+        "SELL"
+    ){
+
+        entry =
+            price;
 
 
-        }
+        sl =
+            Math.max(
+
+                resistance +
+                atr*0.20,
+
+                price +
+                atr*1.20
+
+            );
+
+
+        const risk =
+            sl-entry;
+
+
+        tp1 =
+            entry -
+            risk*1.5;
+
+
+        tp2 =
+            entry -
+            risk*2;
 
     }
 
 
     /* =====================================================
-       SAVE
+       SAVE RESULT
     ===================================================== */
 
     lastAnalysis = {
-
 
         price,
 
@@ -3372,22 +3316,16 @@ function analyze(){
         breakout:
             breakout.found,
 
-        breakoutIndex:
-            breakout.index,
-
         breakdown:
             breakdown.found,
-
-        breakdownIndex:
-            breakdown.index,
 
         buyRetest,
 
         sellRetest,
 
-        preBreakout,
+        nearSupport,
 
-        preBreakdown,
+        nearResistance,
 
         buyScore,
 
@@ -3528,9 +3466,9 @@ function render(a){
         );
 
 
-    /*
+    /* =====================================================
        SIGNAL COLOR
-    */
+    ===================================================== */
 
     const signalEl =
         $("signal");
@@ -3572,15 +3510,19 @@ function render(a){
 
 
     /* =====================================================
-       REASON
+       ANALYSIS TEXT
     ===================================================== */
 
     const reasons = [];
 
 
+    /*
+       TREND
+    */
+
     reasons.push(
 
-        "Trend: <b>" +
+        "📈 Trend: <b>" +
 
         a.trend +
 
@@ -3589,9 +3531,13 @@ function render(a){
     );
 
 
+    /*
+       CANDLE
+    */
+
     reasons.push(
 
-        "Candle: <b>" +
+        "🕯️ Candle CLOSED: <b>" +
 
         a.pattern +
 
@@ -3599,6 +3545,10 @@ function render(a){
 
     );
 
+
+    /*
+       MA
+    */
 
     reasons.push(
 
@@ -3608,14 +3558,7 @@ function render(a){
             a.ma20
         ) +
 
-        "</b>"
-
-    );
-
-
-    reasons.push(
-
-        "MA50: <b>" +
+        "</b> • MA50: <b>" +
 
         formatPrice(
             a.ma50
@@ -3624,6 +3567,72 @@ function render(a){
         "</b>"
 
     );
+
+
+    /*
+       SUPPORT AREA
+    */
+
+    if(
+        a.nearSupport
+    ){
+
+        if(
+            a.trend ===
+            "UPTREND"
+        ){
+
+            reasons.push(
+
+                "🟢 Harga berada di area SUPPORT — tunggu bullish confirmation"
+
+            );
+
+        }
+        else{
+
+            reasons.push(
+
+                "🟡 Harga sedang menguji SUPPORT"
+
+            );
+
+        }
+
+    }
+
+
+    /*
+       RESISTANCE AREA
+    */
+
+    if(
+        a.nearResistance
+    ){
+
+        if(
+            a.trend ===
+            "DOWNTREND"
+        ){
+
+            reasons.push(
+
+                "🔴 Harga berada di area RESISTANCE — tunggu bearish confirmation"
+
+            );
+
+        }
+        else{
+
+            reasons.push(
+
+                "🟡 Harga sedang menguji RESISTANCE"
+
+            );
+
+        }
+
+    }
 
 
     /*
@@ -3636,26 +3645,24 @@ function render(a){
 
         reasons.push(
 
-            "🚀 Breakout resistance " +
-            "terdeteksi dalam 12 candle terakhir"
+            "🚀 Breakout resistance terdeteksi dalam 12 candle terakhir"
 
         );
 
     }
-
     else if(
-        a.preBreakout
+        a.trend ===
+        "UPTREND" &&
+        a.nearResistance
     ){
 
         reasons.push(
 
-            "🎯 Harga mendekati resistance — " +
-            "potensi PRE-BREAKOUT"
+            "🎯 Potensi PRE-BREAKOUT — tunggu candle close di atas resistance"
 
         );
 
     }
-
     else{
 
         reasons.push(
@@ -3677,7 +3684,7 @@ function render(a){
 
         reasons.push(
 
-            "🔄 Retest resistance berhasil dikonfirmasi"
+            "🔄 Retest resistance berhasil"
 
         );
 
@@ -3694,21 +3701,35 @@ function render(a){
 
         reasons.push(
 
-            "🔻 Breakdown support terdeteksi " +
-            "dalam 12 candle terakhir"
+            "🔻 Support mengalami BREAKDOWN"
 
         );
 
     }
-
     else if(
-        a.preBreakdown
+        a.trend ===
+        "DOWNTREND" &&
+        a.price < a.support
     ){
 
         reasons.push(
 
-            "⚠️ Harga mendekati support — " +
-            "potensi PRE-BREAKDOWN"
+            "⚠️ Harga berada di bawah support — tunggu retest"
+
+        );
+
+    }
+    else{
+
+        /*
+           Jangan lagi menulis
+           PRE-BREAKDOWN hanya
+           karena harga dekat support.
+        */
+
+        reasons.push(
+
+            "🛡️ Support masih bertahan"
 
         );
 
@@ -3725,7 +3746,7 @@ function render(a){
 
         reasons.push(
 
-            "🔄 Retest support berhasil dikonfirmasi"
+            "🔄 Retest support berhasil"
 
         );
 
@@ -3758,7 +3779,7 @@ function render(a){
 
         reasons.push(
 
-            "🟢 Konfirmasi BUY memenuhi aturan sistem."
+            "🟢 BUY terkonfirmasi. Tetap gunakan Stop Loss."
 
         );
 
@@ -3771,7 +3792,7 @@ function render(a){
 
         reasons.push(
 
-            "🔴 Konfirmasi SELL memenuhi aturan sistem."
+            "🔴 SELL terkonfirmasi. Tetap gunakan Stop Loss."
 
         );
 
@@ -3781,11 +3802,22 @@ function render(a){
 
         reasons.push(
 
-            "🟡 Belum cukup konfirmasi. WAIT."
+            "🟡 WAIT — belum memenuhi seluruh syarat entry."
 
         );
 
     }
+
+
+    /*
+       CANDLE RULE
+    */
+
+    reasons.push(
+
+        "ℹ️ Sinyal dihitung dari candle yang sudah CLOSED."
+
+    );
 
 
     $("reason").innerHTML =
@@ -3808,7 +3840,7 @@ loadData();
 ========================================================= */
 
 setInterval(
-    () => {
+    function(){
 
         loadData();
 
@@ -3818,12 +3850,12 @@ setInterval(
 
 
 /* =========================================================
-   REFRESH WHEN APP RETURNS
+   REFRESH WHEN RETURN TO PAGE
 ========================================================= */
 
 document.addEventListener(
     "visibilitychange",
-    () => {
+    function(){
 
         if(
             document.visibilityState ===
@@ -3842,4 +3874,5 @@ document.addEventListener(
 
 
 </body>
+
 </html>
