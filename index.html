@@ -13,185 +13,240 @@
 
 body{
     margin:0;
-    background:#07111f;
-    color:#eaf2ff;
-    font-family:Arial,sans-serif;
+    background:#070b12;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-.wrap{
-    max-width:1050px;
+.container{
+    max-width:1200px;
     margin:auto;
-    padding:14px;
+    padding:15px;
 }
 
-h1{
-    font-size:22px;
-    margin:5px 0;
+header{
+    background:linear-gradient(135deg,#111827,#0b1220);
+    border:1px solid #263244;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:15px;
 }
 
-.sub{
-    color:#91a4bd;
-    font-size:12px;
-    margin-bottom:14px;
+header h1{
+    margin:0 0 7px;
+    font-size:25px;
 }
 
-.toolbar{
+header p{
+    margin:0;
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.controls{
     display:flex;
     gap:7px;
     flex-wrap:wrap;
-    margin-bottom:12px;
+    margin-bottom:15px;
 }
 
-button{
-    border:0;
-    border-radius:8px;
-    padding:9px 12px;
-    background:#17263a;
-    color:#dce8f8;
-    font-weight:700;
+.tf-btn{
+    background:#111827;
+    border:1px solid #334155;
+    color:#cbd5e1;
+    padding:10px 15px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-button.active{
-    background:#1976d2;
+.tf-btn.active{
+    background:#2563eb;
+    border-color:#3b82f6;
     color:white;
+}
+
+.status{
+    background:#0f172a;
+    border:1px solid #263244;
+    padding:11px 14px;
+    border-radius:10px;
+    margin-bottom:15px;
+    font-size:13px;
+}
+
+.status.ok{
+    border-color:#14532d;
+}
+
+.status.error{
+    border-color:#7f1d1d;
+    color:#fecaca;
+}
+
+.tv-box{
+    background:#0b1220;
+    border:1px solid #263244;
+    border-radius:15px;
+    overflow:hidden;
+    height:500px;
+    margin-bottom:15px;
+}
+
+.tv-box iframe{
+    width:100%;
+    height:100%;
+    border:0;
 }
 
 .grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:8px;
+    gap:12px;
 }
 
 .card{
-    background:#0d1a2b;
-    border:1px solid #1d3149;
+    background:#0f172a;
+    border:1px solid #263244;
+    border-radius:14px;
+    padding:15px;
+}
+
+.card-title{
+    color:#94a3b8;
+    font-size:12px;
+    margin-bottom:8px;
+    text-transform:uppercase;
+}
+
+.value{
+    font-size:23px;
+    font-weight:bold;
+}
+
+.signal-card{
+    grid-column:span 2;
+    text-align:center;
+    padding:22px;
+}
+
+.signal{
+    font-size:38px;
+    font-weight:900;
+    margin:8px 0;
+}
+
+.buy{
+    color:#22c55e;
+}
+
+.sell{
+    color:#ef4444;
+}
+
+.wait{
+    color:#facc15;
+}
+
+.score{
+    color:#94a3b8;
+    font-size:14px;
+}
+
+.details{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:12px;
+}
+
+.detail{
+    background:#111827;
     border-radius:10px;
     padding:12px;
 }
 
-.label{
+.detail span{
+    display:block;
+    color:#94a3b8;
     font-size:11px;
-    color:#8fa4bf;
+    margin-bottom:5px;
 }
 
-.value{
-    font-size:18px;
-    font-weight:800;
-    margin-top:5px;
-}
-
-.wide{
-    margin-top:10px;
-}
-
-.signal{
-    font-size:30px;
-    font-weight:900;
-    margin:5px 0;
-}
-
-.wait{
-    color:#ffd166;
-}
-
-.buy{
-    color:#35d07f;
-}
-
-.sell{
-    color:#ff6577;
-}
-
-.score{
-    font-size:13px;
-    color:#a9bad0;
+.detail strong{
+    font-size:16px;
 }
 
 .reason{
-    line-height:1.55;
-    font-size:13px;
-    color:#d4e0ee;
+    grid-column:span 2;
 }
 
-.reason div{
-    margin:5px 0;
+.reason-box{
+    line-height:1.7;
+    color:#cbd5e1;
+    font-size:14px;
 }
 
-.ok{
-    color:#35d07f;
-}
-
-.bad{
-    color:#ff6577;
-}
-
-.neutral{
-    color:#ffd166;
-}
-
-.chartbox{
-    height:520px;
-    background:#0b1625;
+.warning{
+    margin-top:15px;
+    padding:12px;
     border-radius:10px;
-    overflow:hidden;
-    border:1px solid #1d3149;
-}
-
-#tv{
-    height:100%;
-    width:100%;
-}
-
-.small{
-    font-size:11px;
-    color:#7f94ad;
-}
-
-.levels{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-}
-
-.level{
-    padding:10px;
-    border-radius:8px;
-    background:#101f32;
-}
-
-.level b{
-    display:block;
+    background:#1c1917;
+    border:1px solid #44403c;
+    color:#d6d3d1;
     font-size:12px;
-    color:#8fa4bf;
+    line-height:1.6;
 }
 
-.level span{
-    font-size:18px;
-    font-weight:800;
-}
-
-.footer{
-    margin-top:12px;
-    color:#71859e;
+footer{
+    text-align:center;
+    color:#64748b;
     font-size:11px;
-    line-height:1.5;
+    padding:20px 0;
 }
 
-.loading{
-    padding:10px;
-    border-radius:8px;
-    background:#101f32;
-    color:#ffd166;
-}
-
-@media(max-width:700px){
+@media(max-width:850px){
 
     .grid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .chartbox{
+    .signal-card,
+    .reason{
+        grid-column:span 2;
+    }
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:10px;
+    }
+
+    header h1{
+        font-size:21px;
+    }
+
+    .tv-box{
         height:430px;
+    }
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .signal-card,
+    .reason{
+        grid-column:span 2;
+    }
+
+    .value{
+        font-size:19px;
+    }
+
+    .details{
+        grid-template-columns:1fr 1fr;
     }
 }
 </style>
@@ -199,103 +254,72 @@ button.active{
 
 <body>
 
-<div class="wrap">
+<div class="container">
 
+<header>
     <h1>🟡 XAUUSD Smart Analyzer</h1>
+    <p>
+        Trend → Support/Resistance → Breakout → Retest → Candle Confirmation
+    </p>
+</header>
 
-    <div class="sub">
-        TREND → SUPPORT/RESISTANCE → BREAKOUT → RETEST → CANDLE CONFIRMATION
+<div class="controls">
+
+    <button class="tf-btn" data-tf="1m">1M</button>
+    <button class="tf-btn" data-tf="5m">5M</button>
+    <button class="tf-btn" data-tf="15m">15M</button>
+    <button class="tf-btn" data-tf="30m">30M</button>
+    <button class="tf-btn active" data-tf="1h">1H</button>
+    <button class="tf-btn" data-tf="4h">4H</button>
+    <button class="tf-btn" data-tf="1d">1D</button>
+
+</div>
+
+<div id="status" class="status">
+    ⏳ Mengambil data XAUUSD...
+</div>
+
+<!-- TRADINGVIEW -->
+<div class="tv-box">
+    <iframe
+        id="tvFrame"
+        src="https://www.tradingview.com/widgetembed/?symbol=OANDA%3AXAUUSD&interval=60&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=0b1220&studies=[]&theme=dark&style=1&timezone=Asia%2FJakarta&locale=id"
+        allowtransparency="true"
+        scrolling="no"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<div class="grid">
+
+    <!-- PRICE -->
+    <div class="card">
+        <div class="card-title">Price</div>
+        <div id="price" class="value">—</div>
     </div>
 
-    <!-- TIMEFRAME -->
-    <div class="toolbar">
-
-        <button data-tf="1m">
-            1m
-        </button>
-
-        <button data-tf="5m">
-            5m
-        </button>
-
-        <button data-tf="15m" class="active">
-            15m
-        </button>
-
-        <button data-tf="30m">
-            30m
-        </button>
-
-        <button data-tf="60m">
-            1H
-        </button>
-
-        <button data-tf="1d">
-            1D
-        </button>
-
+    <!-- TREND -->
+    <div class="card">
+        <div class="card-title">Trend</div>
+        <div id="trend" class="value">—</div>
     </div>
 
-    <!-- TRADINGVIEW -->
-    <div class="chartbox">
-        <div id="tv"></div>
+    <!-- SUPPORT -->
+    <div class="card">
+        <div class="card-title">Support</div>
+        <div id="support" class="value">—</div>
     </div>
 
-    <!-- DATA UTAMA -->
-    <div class="grid wide">
-
-        <div class="card">
-            <div class="label">
-                PRICE
-            </div>
-
-            <div id="price" class="value">
-                —
-            </div>
-        </div>
-
-
-        <div class="card">
-            <div class="label">
-                TREND
-            </div>
-
-            <div id="trend" class="value">
-                —
-            </div>
-        </div>
-
-
-        <div class="card">
-            <div class="label">
-                SUPPORT
-            </div>
-
-            <div id="support" class="value">
-                —
-            </div>
-        </div>
-
-
-        <div class="card">
-            <div class="label">
-                RESISTANCE
-            </div>
-
-            <div id="resistance" class="value">
-                —
-            </div>
-        </div>
-
+    <!-- RESISTANCE -->
+    <div class="card">
+        <div class="card-title">Resistance</div>
+        <div id="resistance" class="value">—</div>
     </div>
-
 
     <!-- SIGNAL -->
-    <div class="card wide">
+    <div class="card signal-card">
 
-        <div class="label">
-            TRADING SIGNAL
-        </div>
+        <div class="card-title">Trading Signal</div>
 
         <div id="signal" class="signal wait">
             WAIT
@@ -305,136 +329,91 @@ button.active{
             BUY 0/10 • SELL 0/10
         </div>
 
-        <div id="status" class="small">
-            Mengambil data XAUUSD...
+        <div class="details">
+
+            <div class="detail">
+                <span>ENTRY</span>
+                <strong id="entry">—</strong>
+            </div>
+
+            <div class="detail">
+                <span>STOP LOSS</span>
+                <strong id="sl">—</strong>
+            </div>
+
+            <div class="detail">
+                <span>TP1</span>
+                <strong id="tp1">—</strong>
+            </div>
+
+            <div class="detail">
+                <span>TP2</span>
+                <strong id="tp2">—</strong>
+            </div>
+
+            <div class="detail">
+                <span>MA20</span>
+                <strong id="ma20">—</strong>
+            </div>
+
+            <div class="detail">
+                <span>MA50</span>
+                <strong id="ma50">—</strong>
+            </div>
+
         </div>
 
     </div>
 
+    <!-- REASON -->
+    <div class="card reason">
 
-    <!-- ENTRY / SL / TP -->
-    <div class="levels wide">
-
-        <div class="level">
-            <b>
-                ENTRY
-            </b>
-
-            <span id="entry">
-                —
-            </span>
+        <div class="card-title">
+            Analisis
         </div>
 
-
-        <div class="level">
-            <b>
-                STOP LOSS
-            </b>
-
-            <span id="sl">
-                —
-            </span>
+        <div id="reason" class="reason-box">
+            Menunggu data candle...
         </div>
-
-
-        <div class="level">
-            <b>
-                TP1 (1.5R)
-            </b>
-
-            <span id="tp1">
-                —
-            </span>
-        </div>
-
-
-        <div class="level">
-            <b>
-                TP2 (2R)
-            </b>
-
-            <span id="tp2">
-                —
-            </span>
-        </div>
-
-    </div>
-
-
-    <!-- ALASAN -->
-    <div class="card wide">
-
-        <div class="label">
-            KENAPA?
-        </div>
-
-        <div id="reasons" class="reason">
-            —
-        </div>
-
-    </div>
-
-
-    <!-- DETAIL -->
-    <div class="card wide">
-
-        <div class="label">
-            DETAIL ANALISIS
-        </div>
-
-        <div id="details" class="reason">
-            —
-        </div>
-
-    </div>
-
-
-    <div class="footer">
-
-        Chart visual menggunakan TradingView OANDA:XAUUSD.
-
-        <br>
-
-        Rumus analisis:
-        Trend + Support/Resistance + Breakout/Breakdown
-        + Retest + Candle Confirmation.
-
-        <br>
-
-        Gunakan WAIT jika kondisi belum lengkap.
-        Jangan entry hanya berdasarkan satu sinyal.
 
     </div>
 
 </div>
 
+<div class="warning">
+    ⚠️ Dashboard ini adalah alat analisis teknikal, bukan jaminan profit.
+    Sinyal BUY/SELL hanya menunjukkan kondisi berdasarkan data candle dan
+    aturan yang digunakan. Selalu gunakan Stop Loss dan jangan mengejar
+    harga setelah candle bergerak terlalu jauh.
+</div>
 
-<!-- TRADINGVIEW -->
-<script src="https://s3.tradingview.com/tv.js"></script>
+<footer>
+    XAUUSD Smart Analyzer • BiQuote API + TradingView
+</footer>
+
+</div>
 
 
 <script>
 
 /* =========================================================
-   KONFIGURASI
+   CONFIG
 ========================================================= */
 
-let currentTF = "15m";
+const API_BASE = "https://biquote.io/api/XAUUSD/ohlc";
 
-let tvInterval = "15";
+let currentTF = "1h";
 
+let candles = [];
 
-/*
-   API milik project Forex_Bot_Prediction
-*/
-const API_BASE =
-"https://forex-bot-prediction.onrender.com/api/market-candles/";
+let lastAnalysis = null;
 
 
-/*
-   Mapping timeframe
-*/
-const TF = {
+/* =========================================================
+   TIMEFRAME
+========================================================= */
+
+const TF_CONFIG = {
 
     "1m":{
         api:"1m",
@@ -456,9 +435,14 @@ const TF = {
         tv:"30"
     },
 
-    "60m":{
+    "1h":{
         api:"1h",
         tv:"60"
+    },
+
+    "4h":{
+        api:"4h",
+        tv:"240"
     },
 
     "1d":{
@@ -470,132 +454,161 @@ const TF = {
 
 
 /* =========================================================
-   HELPER
+   ELEMENTS
 ========================================================= */
 
-function fmt(n){
-
-    if(!Number.isFinite(n)){
-        return "—";
-    }
-
-    return Number(n).toLocaleString(
-        "en-US",
-        {
-            minimumFractionDigits:2,
-            maximumFractionDigits:2
-        }
-    );
-}
+const $ = id => document.getElementById(id);
 
 
-function setText(id,text){
+/* =========================================================
+   BUTTON
+========================================================= */
 
-    const el=document.getElementById(id);
+document.querySelectorAll(".tf-btn").forEach(btn => {
 
-    if(el){
-        el.textContent=text;
-    }
+    btn.addEventListener("click", () => {
 
-}
+        document.querySelectorAll(".tf-btn")
+            .forEach(x => x.classList.remove("active"));
+
+        btn.classList.add("active");
+
+        currentTF = btn.dataset.tf;
+
+        updateTradingView();
+
+        loadData();
+
+    });
+
+});
 
 
 /* =========================================================
    TRADINGVIEW
 ========================================================= */
 
-function createTradingView(){
+function updateTradingView(){
 
-    const box=document.getElementById("tv");
+    const tf = TF_CONFIG[currentTF];
 
-    box.innerHTML="";
+    const url =
+        "https://www.tradingview.com/widgetembed/" +
+        "?symbol=OANDA%3AXAUUSD" +
+        "&interval=" + tf.tv +
+        "&hidesidetoolbar=0" +
+        "&symboledit=0" +
+        "&saveimage=0" +
+        "&toolbarbg=0b1220" +
+        "&studies=[]" +
+        "&theme=dark" +
+        "&style=1" +
+        "&timezone=Asia%2FJakarta" +
+        "&locale=id";
 
-    if(typeof TradingView==="undefined"){
-
-        box.innerHTML=
-        "<div class='loading'>TradingView belum termuat...</div>";
-
-        return;
-    }
-
-
-    new TradingView.widget({
-
-        autosize:true,
-
-        symbol:"OANDA:XAUUSD",
-
-        interval:tvInterval,
-
-        timezone:"Etc/UTC",
-
-        theme:"dark",
-
-        style:"1",
-
-        locale:"en",
-
-        enable_publishing:false,
-
-        hide_top_toolbar:false,
-
-        hide_legend:false,
-
-        allow_symbol_change:false,
-
-        save_image:false,
-
-        container_id:"tv"
-
-    });
+    $("tvFrame").src = url;
 
 }
 
 
 /* =========================================================
-   FETCH JSON
+   FETCH DATA
 ========================================================= */
 
-async function getJSON(url,timeout=15000){
+async function loadData(){
 
-    const controller=new AbortController();
-
-    const timer=setTimeout(
-        ()=>controller.abort(),
-        timeout
-    );
-
+    setStatus("⏳ Mengambil " + currentTF.toUpperCase() + " XAUUSD...", false);
 
     try{
 
-        const response=await fetch(
-            url,
-            {
-                method:"GET",
-                signal:controller.signal,
-                cache:"no-store"
-            }
-        );
+        const tf = TF_CONFIG[currentTF];
 
+        const url =
+            API_BASE +
+            "?interval=" +
+            tf.api +
+            "&limit=1000";
+
+        const response = await fetch(url, {
+            method:"GET",
+            cache:"no-store"
+        });
 
         if(!response.ok){
 
             throw new Error(
-                "HTTP "+response.status
+                "HTTP " + response.status
+            );
+
+        }
+
+        const data = await response.json();
+
+        if(!data || !Array.isArray(data.bars)){
+
+            throw new Error(
+                "Format data API tidak sesuai"
+            );
+
+        }
+
+        candles = data.bars
+            .map(c => ({
+                time: new Date(c.openTime).getTime(),
+
+                open: Number(c.open),
+
+                high: Number(c.high),
+
+                low: Number(c.low),
+
+                close: Number(c.close),
+
+                isOpen: Boolean(c.isOpen)
+            }))
+            .filter(c =>
+                Number.isFinite(c.open) &&
+                Number.isFinite(c.high) &&
+                Number.isFinite(c.low) &&
+                Number.isFinite(c.close)
+            )
+            .sort((a,b) => a.time - b.time);
+
+
+        if(candles.length < 60){
+
+            throw new Error(
+                "Candle yang diterima kurang dari 60"
             );
 
         }
 
 
-        const json=await response.json();
+        analyze();
 
-        return json;
+        setStatus(
+            "✅ Data XAUUSD berhasil • " +
+            candles.length +
+            " candle • " +
+            currentTF.toUpperCase(),
+            true
+        );
 
     }
+    catch(error){
 
-    finally{
+        console.error(error);
 
-        clearTimeout(timer);
+        setStatus(
+            "❌ Gagal mengambil data: " +
+            error.message,
+            false,
+            true
+        );
+
+        $("reason").innerHTML =
+            "API tidak dapat dibaca saat ini. " +
+            "Coba tekan refresh atau ganti timeframe.";
 
     }
 
@@ -603,201 +616,100 @@ async function getJSON(url,timeout=15000){
 
 
 /* =========================================================
-   AMBIL CANDLE
+   STATUS
 ========================================================= */
 
-async function loadCandles(){
+function setStatus(text, ok=false, error=false){
 
-    const apiTF=TF[currentTF].api;
+    const el = $("status");
 
+    el.textContent = text;
 
-    const target=
-        API_BASE+
-        "?timeframe="+
-        encodeURIComponent(apiTF);
+    el.className = "status";
 
-
-    /*
-       Coba langsung terlebih dahulu.
-       Jika CORS gagal, coba proxy.
-    */
-
-    const urls=[
-
-        target,
-
-        "https://api.allorigins.win/raw?url="+
-        encodeURIComponent(target),
-
-        "https://corsproxy.io/?url="+
-        encodeURIComponent(target),
-
-        "https://api.codetabs.com/v1/proxy?quest="+
-        encodeURIComponent(target)
-
-    ];
-
-
-    let lastError=null;
-
-
-    for(const url of urls){
-
-        try{
-
-            const json=await getJSON(url);
-
-
-            if(
-                json &&
-                Array.isArray(json.candles) &&
-                json.candles.length>=30
-            ){
-
-                return json;
-
-            }
-
-        }
-        catch(error){
-
-            lastError=error;
-
-        }
-
+    if(ok){
+        el.classList.add("ok");
     }
 
-
-    throw lastError ||
-    new Error(
-        "Data candle tidak tersedia"
-    );
+    if(error){
+        el.classList.add("error");
+    }
 
 }
 
 
 /* =========================================================
-   CANDLE
+   SMA
 ========================================================= */
 
-function candleType(c){
+function SMA(data, period){
 
-    const body=
-        Math.abs(c.close-c.open);
+    if(data.length < period){
+        return null;
+    }
 
-    const range=
-        Math.max(c.high-c.low,0.00000001);
+    let sum = 0;
 
-    const upper=
-        c.high-
-        Math.max(c.open,c.close);
-
-    const lower=
-        Math.min(c.open,c.close)-
-        c.low;
-
-
-    const bullish=
-        c.close>c.open;
-
-    const bearish=
-        c.close<c.open;
-
-
-    /*
-       PIN BAR BULLISH
-    */
-
-    if(
-        lower>=body*2 &&
-        lower>=range*0.35 &&
-        upper<=range*0.25 &&
-        bullish
+    for(
+        let i = data.length - period;
+        i < data.length;
+        i++
     ){
 
-        return "BULLISH PIN BAR";
+        sum += data[i].close;
 
     }
 
-
-    /*
-       PIN BAR BEARISH
-    */
-
-    if(
-        upper>=body*2 &&
-        upper>=range*0.35 &&
-        lower<=range*0.25 &&
-        bearish
-    ){
-
-        return "BEARISH PIN BAR";
-
-    }
-
-
-    if(bullish){
-
-        return "BULLISH";
-
-    }
-
-
-    if(bearish){
-
-        return "BEARISH";
-
-    }
-
-
-    return "DOJI";
+    return sum / period;
 
 }
 
 
 /* =========================================================
-   ENGULFING
+   ATR
 ========================================================= */
 
-function bullishEngulfing(prev,last){
+function calculateATR(data, period=14){
 
-    if(!prev || !last){
-        return false;
+    if(data.length < period + 1){
+        return null;
     }
 
+    const trs = [];
 
-    return (
+    for(let i=1;i<data.length;i++){
 
-        prev.close < prev.open &&
+        const high = data[i].high;
 
-        last.close > last.open &&
+        const low = data[i].low;
 
-        last.open <= prev.close &&
+        const previousClose =
+            data[i-1].close;
 
-        last.close >= prev.open
+        const tr = Math.max(
 
-    );
+            high - low,
 
-}
+            Math.abs(high - previousClose),
 
+            Math.abs(low - previousClose)
 
-function bearishEngulfing(prev,last){
+        );
 
-    if(!prev || !last){
-        return false;
+        trs.push(tr);
+
     }
 
+    if(trs.length < period){
+        return null;
+    }
+
+    const last =
+        trs.slice(-period);
 
     return (
-
-        prev.close > prev.open &&
-
-        last.close < last.open &&
-
-        last.open >= prev.close &&
-
-        last.close <= prev.open
-
+        last.reduce((a,b)=>a+b,0)
+        / period
     );
 
 }
@@ -807,33 +719,29 @@ function bearishEngulfing(prev,last){
    SWING HIGH
 ========================================================= */
 
-function isSwingHigh(data,index){
+function isSwingHigh(data,index,strength=2){
 
     if(
-        index<2 ||
-        index+2>=data.length
+        index < strength ||
+        index >= data.length-strength
     ){
-
         return false;
+    }
+
+    const high = data[index].high;
+
+    for(let i=1;i<=strength;i++){
+
+        if(
+            high <= data[index-i].high ||
+            high <= data[index+i].high
+        ){
+            return false;
+        }
 
     }
 
-
-    return (
-
-        data[index].high >
-        data[index-1].high &&
-
-        data[index].high >
-        data[index-2].high &&
-
-        data[index].high >=
-        data[index+1].high &&
-
-        data[index].high >=
-        data[index+2].high
-
-    );
+    return true;
 
 }
 
@@ -842,167 +750,74 @@ function isSwingHigh(data,index){
    SWING LOW
 ========================================================= */
 
-function isSwingLow(data,index){
+function isSwingLow(data,index,strength=2){
 
     if(
-        index<2 ||
-        index+2>=data.length
+        index < strength ||
+        index >= data.length-strength
     ){
-
         return false;
+    }
+
+    const low = data[index].low;
+
+    for(let i=1;i<=strength;i++){
+
+        if(
+            low >= data[index-i].low ||
+            low >= data[index+i].low
+        ){
+            return false;
+        }
 
     }
 
-
-    return (
-
-        data[index].low <
-        data[index-1].low &&
-
-        data[index].low <
-        data[index-2].low &&
-
-        data[index].low <=
-        data[index+1].low &&
-
-        data[index].low <=
-        data[index+2].low
-
-    );
+    return true;
 
 }
 
 
 /* =========================================================
-   SUPPORT / RESISTANCE
+   FIND SWINGS
 ========================================================= */
 
-function findLevels(data,price){
+function getSwings(data){
 
-    const highs=[];
-    const lows=[];
+    const highs = [];
 
+    const lows = [];
 
-    /*
-       Gunakan maksimal 150 candle terakhir
-    */
+    const start =
+        Math.max(2,data.length-200);
 
-    const start=
-        Math.max(2,data.length-150);
-
-
-    const end=
+    const end =
         data.length-3;
 
+    for(let i=start;i<=end;i++){
 
-    for(
-        let i=start;
-        i<=end;
-        i++
-    ){
-
-        if(isSwingHigh(data,i)){
+        if(isSwingHigh(data,i,2)){
 
             highs.push({
-
-                price:data[i].high,
-
-                index:i
-
+                index:i,
+                price:data[i].high
             });
 
         }
 
-
-        if(isSwingLow(data,i)){
+        if(isSwingLow(data,i,2)){
 
             lows.push({
-
-                price:data[i].low,
-
-                index:i
-
+                index:i,
+                price:data[i].low
             });
 
         }
 
     }
 
-
-    /*
-       Resistance terdekat di atas harga
-    */
-
-    let resistance=
-        highs
-        .filter(x=>x.price>price)
-        .sort(
-            (a,b)=>a.price-b.price
-        )[0];
-
-
-    /*
-       Support terdekat di bawah harga
-    */
-
-    let support=
-        lows
-        .filter(x=>x.price<price)
-        .sort(
-            (a,b)=>b.price-a.price
-        )[0];
-
-
-    /*
-       Fallback jika tidak ditemukan
-    */
-
-    const recent=
-        data.slice(
-            Math.max(0,data.length-50)
-        );
-
-
-    if(!resistance){
-
-        resistance={
-
-            price:Math.max(
-                ...recent.map(x=>x.high)
-            ),
-
-            index:data.length-50
-
-        };
-
-    }
-
-
-    if(!support){
-
-        support={
-
-            price:Math.min(
-                ...recent.map(x=>x.low)
-            ),
-
-            index:data.length-50
-
-        };
-
-    }
-
-
     return {
-
-        support,
-
-        resistance,
-
         highs,
-
         lows
-
     };
 
 }
@@ -1012,148 +827,201 @@ function findLevels(data,price){
    TREND
 ========================================================= */
 
-function detectTrend(data,highs,lows){
+function detectTrend(data){
 
-    const hs=
-        highs
-        .slice(-4)
-        .sort(
-            (a,b)=>a.index-b.index
-        );
+    const swings = getSwings(data);
 
+    const highs = swings.highs;
 
-    const ls=
-        lows
-        .slice(-4)
-        .sort(
-            (a,b)=>a.index-b.index
-        );
-
-
-    /*
-       Higher High + Higher Low
-       = UPTREND
-    */
+    const lows = swings.lows;
 
     if(
-        hs.length>=2 &&
-        ls.length>=2
+        highs.length < 2 ||
+        lows.length < 2
     ){
 
-        const lastH=
-            hs[hs.length-1].price;
-
-        const prevH=
-            hs[hs.length-2].price;
-
-        const lastL=
-            ls[ls.length-1].price;
-
-        const prevL=
-            ls[ls.length-2].price;
-
-
-        if(
-            lastH>prevH &&
-            lastL>prevL
-        ){
-
-            return {
-
-                name:"UPTREND",
-
-                dir:"up",
-
-                why:"Higher High + Higher Low"
-
-            };
-
-        }
-
-
-        /*
-           Lower High + Lower Low
-           = DOWNTREND
-        */
-
-        if(
-            lastH<prevH &&
-            lastL<prevL
-        ){
-
-            return {
-
-                name:"DOWNTREND",
-
-                dir:"down",
-
-                why:"Lower High + Lower Low"
-
-            };
-
-        }
+        return "SIDEWAYS";
 
     }
 
+    const h1 =
+        highs[highs.length-2].price;
 
-    /*
-       Fallback menggunakan perubahan harga
-    */
+    const h2 =
+        highs[highs.length-1].price;
 
-    const n=
-        Math.min(30,data.length);
+    const l1 =
+        lows[lows.length-2].price;
+
+    const l2 =
+        lows[lows.length-1].price;
 
 
-    const first=
-        data[data.length-n].close;
+    if(h2 > h1 && l2 > l1){
 
-    const last=
+        return "UPTREND";
+
+    }
+
+    if(h2 < h1 && l2 < l1){
+
+        return "DOWNTREND";
+
+    }
+
+    return "SIDEWAYS";
+
+}
+
+
+/* =========================================================
+   SUPPORT / RESISTANCE
+========================================================= */
+
+function findSupportResistance(data){
+
+    const swings = getSwings(data);
+
+    const price =
         data[data.length-1].close;
 
+    const supportCandidates =
+        swings.lows
+        .map(x=>x.price)
+        .filter(x=>x < price);
 
-    const change=
-        (last-first)/first;
-
-
-    if(change>0.002){
-
-        return {
-
-            name:"UPTREND",
-
-            dir:"up",
-
-            why:"Harga naik pada range terbaru"
-
-        };
-
-    }
+    const resistanceCandidates =
+        swings.highs
+        .map(x=>x.price)
+        .filter(x=>x > price);
 
 
-    if(change<-0.002){
+    let support =
+        supportCandidates.length
+        ? Math.max(...supportCandidates)
+        : Math.min(
+            ...data.slice(-50).map(x=>x.low)
+        );
 
-        return {
 
-            name:"DOWNTREND",
-
-            dir:"down",
-
-            why:"Harga turun pada range terbaru"
-
-        };
-
-    }
+    let resistance =
+        resistanceCandidates.length
+        ? Math.min(...resistanceCandidates)
+        : Math.max(
+            ...data.slice(-50).map(x=>x.high)
+        );
 
 
     return {
-
-        name:"SIDEWAYS",
-
-        dir:"side",
-
-        why:"Struktur belum jelas"
-
+        support,
+        resistance
     };
+
+}
+
+
+/* =========================================================
+   CANDLE PATTERN
+========================================================= */
+
+function candlePattern(prev,curr){
+
+    if(!prev || !curr){
+
+        return "NONE";
+
+    }
+
+
+    const prevBull =
+        prev.close > prev.open;
+
+    const currBull =
+        curr.close > curr.open;
+
+
+    /* ENGULFING */
+
+    const bullishEngulfing =
+        !prevBull &&
+        currBull &&
+        curr.open <= prev.close &&
+        curr.close >= prev.open;
+
+
+    const bearishEngulfing =
+        prevBull &&
+        !currBull &&
+        curr.open >= prev.close &&
+        curr.close <= prev.open;
+
+
+    if(bullishEngulfing){
+
+        return "BULLISH ENGULFING";
+
+    }
+
+    if(bearishEngulfing){
+
+        return "BEARISH ENGULFING";
+
+    }
+
+
+    /* PIN BAR */
+
+    const body =
+        Math.abs(curr.close-curr.open);
+
+    const range =
+        curr.high-curr.low;
+
+    const upperWick =
+        curr.high -
+        Math.max(curr.open,curr.close);
+
+    const lowerWick =
+        Math.min(curr.open,curr.close) -
+        curr.low;
+
+
+    if(range > 0){
+
+        if(
+            lowerWick >= body*2 &&
+            lowerWick >= range*0.5
+        ){
+
+            return "BULLISH PIN BAR";
+
+        }
+
+        if(
+            upperWick >= body*2 &&
+            upperWick >= range*0.5
+        ){
+
+            return "BEARISH PIN BAR";
+
+        }
+
+    }
+
+
+    if(currBull){
+
+        return "BULLISH";
+
+    }
+
+    if(!currBull){
+
+        return "BEARISH";
+
+    }
+
+    return "NONE";
 
 }
 
@@ -1162,77 +1030,52 @@ function detectTrend(data,highs,lows){
    BREAKOUT
 ========================================================= */
 
-function findBreakout(
-    data,
-    resistance,
-    support
-){
+function detectBreakout(data,resistance){
 
-    const start=
-        Math.max(1,data.length-20);
+    const last =
+        data[data.length-1];
 
-
-    let latest=null;
+    const previous =
+        data[data.length-2];
 
 
-    for(
-        let i=start;
-        i<data.length;
-        i++
+    if(
+        previous.close <= resistance &&
+        last.close > resistance
     ){
 
-        const prev=data[i-1];
-
-        const cur=data[i];
-
-
-        /*
-           BREAKOUT ATAS
-        */
-
-        if(
-            cur.close>resistance.price &&
-            prev.close<=resistance.price
-        ){
-
-            latest={
-
-                type:"up",
-
-                index:i,
-
-                level:resistance.price
-
-            };
-
-        }
-
-
-        /*
-           BREAKDOWN BAWAH
-        */
-
-        if(
-            cur.close<support.price &&
-            prev.close>=support.price
-        ){
-
-            latest={
-
-                type:"down",
-
-                index:i,
-
-                level:support.price
-
-            };
-
-        }
+        return true;
 
     }
 
+    return false;
 
-    return latest;
+}
+
+
+/* =========================================================
+   BREAKDOWN
+========================================================= */
+
+function detectBreakdown(data,support){
+
+    const last =
+        data[data.length-1];
+
+    const previous =
+        data[data.length-2];
+
+
+    if(
+        previous.close >= support &&
+        last.close < support
+    ){
+
+        return true;
+
+    }
+
+    return false;
 
 }
 
@@ -1241,557 +1084,285 @@ function findBreakout(
    RETEST
 ========================================================= */
 
-function findRetest(
+function detectRetest(
     data,
-    breakout
+    level,
+    direction
 ){
 
-    if(!breakout){
+    if(!level){
 
-        return {
-
-            ok:false,
-
-            index:-1,
-
-            candle:null
-
-        };
+        return false;
 
     }
 
+    const start =
+        Math.max(0,data.length-8);
 
-    /*
-       Retest boleh terjadi sampai
-       10 candle setelah breakout.
-    */
-
-    const start=
-        breakout.index+1;
+    const last =
+        data[data.length-1];
 
 
-    const end=
-        Math.min(
-            data.length-1,
-            breakout.index+10
-        );
+    for(let i=start;i<data.length;i++){
 
+        const c = data[i];
 
-    if(start>end){
+        const tolerance =
+            Math.max(
+                level*0.001,
+                (c.high-c.low)*1.5
+            );
 
-        return {
-
-            ok:false,
-
-            index:-1,
-
-            candle:null
-
-        };
-
-    }
-
-
-    const level=
-        breakout.level;
-
-
-    /*
-       Tolerance
-       sekitar 0.10% harga
-    */
-
-    const tolerance=
-        Math.max(
-            level*0.001,
-            2
-        );
-
-
-    for(
-        let i=start;
-        i<=end;
-        i++
-    ){
-
-        const c=data[i];
-
-
-        const touched=
-
-            c.low <=
-            level+tolerance &&
-
-            c.high >=
-            level-tolerance;
-
-
-        if(!touched){
-
-            continue;
-
-        }
-
-
-        /*
-           Breakout bullish:
-           retest harus bertahan di atas level
-        */
 
         if(
-            breakout.type==="up" &&
-            c.close>=level
+            Math.abs(c.low-level)
+            <= tolerance ||
+            Math.abs(c.high-level)
+            <= tolerance
         ){
 
-            return {
+            if(direction === "BUY"){
 
-                ok:true,
+                if(
+                    c.close > level
+                ){
+                    return true;
+                }
 
-                index:i,
+            }
 
-                candle:c
+            if(direction === "SELL"){
 
-            };
+                if(
+                    c.close < level
+                ){
+                    return true;
+                }
 
-        }
-
-
-        /*
-           Breakdown bearish:
-           retest harus bertahan di bawah level
-        */
-
-        if(
-            breakout.type==="down" &&
-            c.close<=level
-        ){
-
-            return {
-
-                ok:true,
-
-                index:i,
-
-                candle:c
-
-            };
+            }
 
         }
 
     }
 
-
-    return {
-
-        ok:false,
-
-        index:-1,
-
-        candle:null
-
-    };
+    return false;
 
 }
 
 
 /* =========================================================
-   ANALISIS
+   ANALYZE
 ========================================================= */
 
-function analyze(rawData){
+function analyze(){
 
-    if(
-        !Array.isArray(rawData) ||
-        rawData.length<30
-    ){
-
-        throw new Error(
-            "Minimal 30 candle diperlukan"
-        );
-
+    if(candles.length < 60){
+        return;
     }
 
 
-    /*
-       Bersihkan data
-    */
-
-    const data=
-        rawData
-        .map(x=>({
-
-            time:Number(x.time),
-
-            open:Number(x.open),
-
-            high:Number(x.high),
-
-            low:Number(x.low),
-
-            close:Number(x.close)
-
-        }))
-        .filter(x=>
-
-            Number.isFinite(x.open) &&
-
-            Number.isFinite(x.high) &&
-
-            Number.isFinite(x.low) &&
-
-            Number.isFinite(x.close)
-
-        );
+    const data =
+        candles.slice(-300);
 
 
-    if(data.length<30){
+    const last =
+        data[data.length-1];
 
-        throw new Error(
-            "Data candle tidak cukup"
-        );
-
-    }
+    const previous =
+        data[data.length-2];
 
 
-    /*
-       Candle terakhir dianggap
-       masih berjalan.
-
-       Analisis menggunakan candle
-       yang sudah CLOSE.
-    */
-
-    const closed=
-        data.length>1
-        ? data.slice(0,-1)
-        : data;
+    const price =
+        last.close;
 
 
-    const price=
-        data[data.length-1].close;
+    const trend =
+        detectTrend(data);
 
 
-    /*
-       S/R
-    */
-
-    const levels=
-        findLevels(
-            closed,
-            price
-        );
+    const sr =
+        findSupportResistance(data);
 
 
-    /*
-       Trend
-    */
+    const support =
+        sr.support;
 
-    const trend=
-        detectTrend(
-            closed,
-            levels.highs,
-            levels.lows
-        );
+    const resistance =
+        sr.resistance;
 
 
-    /*
-       Breakout
-    */
+    const ma20 =
+        SMA(data,20);
 
-    const breakout=
-        findBreakout(
-            closed,
-            levels.resistance,
-            levels.support
-        );
+    const ma50 =
+        SMA(data,50);
+
+    const atr =
+        calculateATR(data,14);
 
 
-    /*
-       Retest
-    */
-
-    const retest=
-        findRetest(
-            closed,
-            breakout
-        );
-
-
-    /*
-       Candle konfirmasi terbaru
-    */
-
-    const last=
-        closed[closed.length-1];
-
-    const prev=
-        closed[closed.length-2];
-
-
-    const candle=
-        candleType(last);
-
-
-    const bullEng=
-        bullishEngulfing(
-            prev,
+    const pattern =
+        candlePattern(
+            previous,
             last
         );
 
 
-    const bearEng=
-        bearishEngulfing(
-            prev,
-            last
+    const breakout =
+        detectBreakout(
+            data,
+            resistance
         );
 
 
-    const bullPin=
-        candle==="BULLISH PIN BAR";
-
-
-    const bearPin=
-        candle==="BEARISH PIN BAR";
-
-
-    /*
-       Jika retest terjadi,
-       periksa candle retest juga.
-    */
-
-    let retestBull=false;
-    let retestBear=false;
-
-
-    if(retest.ok && retest.candle){
-
-        retestBull=
-            retest.candle.close>
-            retest.candle.open;
-
-
-        retestBear=
-            retest.candle.close<
-            retest.candle.open;
-
-    }
-
-
-    /*
-       Konfirmasi bullish
-    */
-
-    const bullishConfirmation=
-        bullEng ||
-        bullPin ||
-        (
-            retest.ok &&
-            breakout &&
-            breakout.type==="up" &&
-            retestBull
+    const breakdown =
+        detectBreakdown(
+            data,
+            support
         );
 
 
-    /*
-       Konfirmasi bearish
-    */
-
-    const bearishConfirmation=
-        bearEng ||
-        bearPin ||
-        (
-            retest.ok &&
-            breakout &&
-            breakout.type==="down" &&
-            retestBear
+    const buyRetest =
+        detectRetest(
+            data,
+            resistance,
+            "BUY"
         );
 
 
-    /*
-       Jarak harga ke S/R
-    */
-
-    const tolerance=
-        Math.max(
-            price*0.0012,
-            2
+    const sellRetest =
+        detectRetest(
+            data,
+            support,
+            "SELL"
         );
-
-
-    const nearSupport=
-        Math.abs(
-            last.low-
-            levels.support.price
-        )<=tolerance;
-
-
-    const nearResistance=
-        Math.abs(
-            last.high-
-            levels.resistance.price
-        )<=tolerance;
 
 
     /* =====================================================
        SCORE
     ===================================================== */
 
-    let buyScore=0;
+    let buyScore = 0;
 
-    let sellScore=0;
-
-
-    const buyReasons=[];
-
-    const sellReasons=[];
+    let sellScore = 0;
 
 
-    /*
-       TREND = 2
-    */
+    /* TREND */
 
-    if(trend.dir==="up"){
+    if(trend === "UPTREND"){
 
-        buyScore+=2;
+        buyScore += 2;
 
-        buyReasons.push(
-            "Trend UPTREND: Higher High + Higher Low."
-        );
+    }
+
+    if(trend === "DOWNTREND"){
+
+        sellScore += 2;
 
     }
 
 
-    if(trend.dir==="down"){
-
-        sellScore+=2;
-
-        sellReasons.push(
-            "Trend DOWNTREND: Lower High + Lower Low."
-        );
-
-    }
-
-
-    /*
-       BREAKOUT = 3
-    */
+    /* MA */
 
     if(
-        breakout &&
-        breakout.type==="up"
+        ma20 &&
+        ma50 &&
+        ma20 > ma50
     ){
 
-        buyScore+=3;
-
-        buyReasons.push(
-            "Breakout resistance terdeteksi."
-        );
+        buyScore += 1;
 
     }
+
+    if(
+        ma20 &&
+        ma50 &&
+        ma20 < ma50
+    ){
+
+        sellScore += 1;
+
+    }
+
+
+    /* BREAKOUT */
+
+    if(breakout){
+
+        buyScore += 3;
+
+    }
+
+    if(breakdown){
+
+        sellScore += 3;
+
+    }
+
+
+    /* RETEST */
+
+    if(buyRetest){
+
+        buyScore += 2;
+
+    }
+
+    if(sellRetest){
+
+        sellScore += 2;
+
+    }
+
+
+    /* CANDLE */
+
+    if(
+        pattern === "BULLISH ENGULFING" ||
+        pattern === "BULLISH PIN BAR"
+    ){
+
+        buyScore += 2;
+
+    }
+
+    if(
+        pattern === "BEARISH ENGULFING" ||
+        pattern === "BEARISH PIN BAR"
+    ){
+
+        sellScore += 2;
+
+    }
+
+
+    /* S/R POSITION */
+
+    const distanceToSupport =
+        Math.abs(price-support);
+
+    const distanceToResistance =
+        Math.abs(resistance-price);
 
 
     if(
-        breakout &&
-        breakout.type==="down"
+        distanceToSupport <
+        distanceToResistance &&
+        pattern.includes("BULLISH")
     ){
 
-        sellScore+=3;
-
-        sellReasons.push(
-            "Breakdown support terdeteksi."
-        );
-
-    }
-
-
-    /*
-       RETEST = 2
-    */
-
-    if(
-        breakout &&
-        breakout.type==="up" &&
-        retest.ok
-    ){
-
-        buyScore+=2;
-
-        buyReasons.push(
-            "Breakout sudah diretest dan harga bertahan di atas level."
-        );
-
-    }
-
-
-    if(
-        breakout &&
-        breakout.type==="down" &&
-        retest.ok
-    ){
-
-        sellScore+=2;
-
-        sellReasons.push(
-            "Breakdown sudah diretest dan harga bertahan di bawah level."
-        );
-
-    }
-
-
-    /*
-       CANDLE = 2
-    */
-
-    if(bullishConfirmation){
-
-        buyScore+=2;
-
-        buyReasons.push(
-            "Ada konfirmasi candle bullish."
-        );
-
-    }
-
-
-    if(bearishConfirmation){
-
-        sellScore+=2;
-
-        sellReasons.push(
-            "Ada konfirmasi candle bearish."
-        );
-
-    }
-
-
-    /*
-       SUPPORT / RESISTANCE = 1
-    */
-
-    if(
-        nearSupport &&
-        bullishConfirmation
-    ){
-
-        buyScore+=1;
-
-        buyReasons.push(
-            "Harga berada dekat support dengan konfirmasi bullish."
-        );
+        buyScore += 1;
 
     }
 
 
     if(
-        nearResistance &&
-        bearishConfirmation
+        distanceToResistance <
+        distanceToSupport &&
+        pattern.includes("BEARISH")
     ){
 
-        sellScore+=1;
-
-        sellReasons.push(
-            "Harga berada dekat resistance dengan konfirmasi bearish."
-        );
+        sellScore += 1;
 
     }
 
@@ -1800,835 +1371,361 @@ function analyze(rawData){
        SIGNAL
     ===================================================== */
 
-    let signal="WAIT";
-
-    let cls="wait";
-
-
-    /*
-       BUY
-       minimal score 5
-
-       Harus:
-       - trend naik
-       - bullish confirmation
-       - breakout+retest
-         ATAU
-       - rejection support
-    */
-
-    const buyStructure=
-
-        (
-            breakout &&
-            breakout.type==="up" &&
-            retest.ok
-        )
-
-        ||
-
-        (
-            nearSupport &&
-            bullishConfirmation
-        );
-
-
-    /*
-       SELL
-    */
-
-    const sellStructure=
-
-        (
-            breakout &&
-            breakout.type==="down" &&
-            retest.ok
-        )
-
-        ||
-
-        (
-            nearResistance &&
-            bearishConfirmation
-        );
+    let signal = "WAIT";
 
 
     if(
-
-        buyScore>=5 &&
-
-        buyScore>sellScore &&
-
-        trend.dir==="up" &&
-
-        bullishConfirmation &&
-
-        buyStructure
-
+        buyScore >= 5 &&
+        buyScore > sellScore &&
+        trend === "UPTREND"
     ){
 
-        signal="BUY";
-
-        cls="buy";
+        signal = "BUY";
 
     }
-
-
     else if(
-
-        sellScore>=5 &&
-
-        sellScore>buyScore &&
-
-        trend.dir==="down" &&
-
-        bearishConfirmation &&
-
-        sellStructure
-
+        sellScore >= 5 &&
+        sellScore > buyScore &&
+        trend === "DOWNTREND"
     ){
 
-        signal="SELL";
-
-        cls="sell";
+        signal = "SELL";
 
     }
 
 
     /* =====================================================
-       ATR / RANGE
+       ENTRY SL TP
     ===================================================== */
 
-    const atrData=
-        closed.slice(-14);
+    let entry = null;
+
+    let sl = null;
+
+    let tp1 = null;
+
+    let tp2 = null;
 
 
-    const atr=
-        atrData.reduce(
-            (sum,c)=>
-                sum+(c.high-c.low),
-            0
-        )
-        /
-        Math.max(
-            atrData.length,
-            1
-        );
+    if(atr){
 
+        if(signal === "BUY"){
 
-    /* =====================================================
-       ENTRY / SL / TP
-    ===================================================== */
+            entry = price;
 
-    let entry=null;
+            sl =
+                Math.min(
+                    support,
+                    price - atr*1.5
+                );
 
-    let sl=null;
+            const risk =
+                entry-sl;
 
-    let tp1=null;
+            tp1 =
+                entry + risk*1.5;
 
-    let tp2=null;
-
-
-    if(signal==="BUY"){
-
-        entry=price;
-
-
-        /*
-           SL di bawah support
-           atau 1.2 ATR
-        */
-
-        sl=Math.min(
-
-            levels.support.price,
-
-            price-(atr*1.2)
-
-        );
-
-
-        if(sl>=entry){
-
-            sl=
-                entry-
-                (atr*1.2);
+            tp2 =
+                entry + risk*2;
 
         }
 
 
-        const risk=
-            entry-sl;
+        if(signal === "SELL"){
 
+            entry = price;
 
-        tp1=
-            entry+
-            risk*1.5;
+            sl =
+                Math.max(
+                    resistance,
+                    price + atr*1.5
+                );
 
+            const risk =
+                sl-entry;
 
-        tp2=
-            entry+
-            risk*2;
+            tp1 =
+                entry - risk*1.5;
 
-    }
-
-
-    if(signal==="SELL"){
-
-        entry=price;
-
-
-        sl=Math.max(
-
-            levels.resistance.price,
-
-            price+(atr*1.2)
-
-        );
-
-
-        if(sl<=entry){
-
-            sl=
-                entry+
-                (atr*1.2);
-
-        }
-
-
-        const risk=
-            sl-entry;
-
-
-        tp1=
-            entry-
-            risk*1.5;
-
-
-        tp2=
-            entry-
-            risk*2;
-
-    }
-
-
-    /* =====================================================
-       TEXT
-    ===================================================== */
-
-    let breakoutText=
-        "Belum ada breakout/breakdown valid.";
-
-
-    if(breakout){
-
-        if(breakout.type==="up"){
-
-            breakoutText=
-                "BREAKOUT bullish pada level "+
-                fmt(breakout.level);
-
-        }
-
-        else{
-
-            breakoutText=
-                "BREAKDOWN bearish pada level "+
-                fmt(breakout.level);
+            tp2 =
+                entry - risk*2;
 
         }
 
     }
 
 
-    let retestText=
-        "Belum ada retest.";
-
-
-    if(breakout){
-
-        if(retest.ok){
-
-            retestText=
-                "Retest TERKONFIRMASI.";
-
-        }
-
-        else{
-
-            retestText=
-                "Breakout ada, tetapi retest belum terkonfirmasi.";
-
-        }
-
-    }
-
-
-    return {
+    lastAnalysis = {
 
         price,
-
-        support:
-            levels.support.price,
-
-        resistance:
-            levels.resistance.price,
-
         trend,
-
-        breakout,
-
-        retest,
-
-        candle,
-
-        bullEng,
-
-        bearEng,
-
-        bullPin,
-
-        bearPin,
-
-        nearSupport,
-
-        nearResistance,
-
-        buyScore,
-
-        sellScore,
-
-        buyReasons,
-
-        sellReasons,
-
-        signal,
-
-        cls,
-
-        entry,
-
-        sl,
-
-        tp1,
-
-        tp2,
-
+        support,
+        resistance,
+        ma20,
+        ma50,
         atr,
-
-        candles:data.length,
-
-        breakoutText,
-
-        retestText
+        pattern,
+        breakout,
+        breakdown,
+        buyRetest,
+        sellRetest,
+        buyScore,
+        sellScore,
+        signal,
+        entry,
+        sl,
+        tp1,
+        tp2
 
     };
+
+
+    render(lastAnalysis);
 
 }
 
 
 /* =========================================================
-   RENDER HASIL
+   FORMAT PRICE
+========================================================= */
+
+function formatPrice(value){
+
+    if(
+        value === null ||
+        value === undefined ||
+        !Number.isFinite(value)
+    ){
+
+        return "—";
+
+    }
+
+    return value.toFixed(2);
+
+}
+
+
+/* =========================================================
+   RENDER
 ========================================================= */
 
 function render(a){
 
-    setText(
-        "price",
-        fmt(a.price)
-    );
+    $("price").textContent =
+        formatPrice(a.price);
 
 
-    setText(
-        "trend",
-        a.trend.name
-    );
+    $("trend").textContent =
+        a.trend;
 
 
-    setText(
-        "support",
-        fmt(a.support)
-    );
+    $("support").textContent =
+        formatPrice(a.support);
 
 
-    setText(
-        "resistance",
-        fmt(a.resistance)
-    );
+    $("resistance").textContent =
+        formatPrice(a.resistance);
 
 
-    /*
-       SIGNAL
-    */
-
-    const signal=
-        document.getElementById("signal");
+    $("ma20").textContent =
+        formatPrice(a.ma20);
 
 
-    signal.textContent=
+    $("ma50").textContent =
+        formatPrice(a.ma50);
+
+
+    $("signal").textContent =
         a.signal;
 
 
-    signal.className=
-        "signal "+
-        a.cls;
+    $("score").textContent =
+        "BUY " +
+        a.buyScore +
+        "/10 • SELL " +
+        a.sellScore +
+        "/10";
 
 
-    /*
-       SCORE
-    */
-
-    setText(
-        "score",
-
-        `BUY ${a.buyScore}/10 • SELL ${a.sellScore}/10`
-
-    );
+    $("entry").textContent =
+        formatPrice(a.entry);
 
 
-    /*
-       ENTRY SL TP
-    */
-
-    setText(
-        "entry",
-        a.entry!==null
-        ?fmt(a.entry)
-        :"—"
-    );
+    $("sl").textContent =
+        formatPrice(a.sl);
 
 
-    setText(
-        "sl",
-        a.sl!==null
-        ?fmt(a.sl)
-        :"—"
-    );
+    $("tp1").textContent =
+        formatPrice(a.tp1);
 
 
-    setText(
-        "tp1",
-        a.tp1!==null
-        ?fmt(a.tp1)
-        :"—"
-    );
+    $("tp2").textContent =
+        formatPrice(a.tp2);
 
 
-    setText(
-        "tp2",
-        a.tp2!==null
-        ?fmt(a.tp2)
-        :"—"
-    );
+    const signalEl =
+        $("signal");
+
+    signalEl.className =
+        "signal";
 
 
-    /* =====================================================
-       ALASAN
-    ===================================================== */
+    if(a.signal === "BUY"){
 
-    const reasons=[];
+        signalEl.classList.add("buy");
 
+    }
+    else if(a.signal === "SELL"){
 
-    if(a.trend.dir==="up"){
+        signalEl.classList.add("sell");
 
-        reasons.push(
-            `<div class="ok">
-                • Trend: UPTREND — ${a.trend.why}
-            </div>`
-        );
+    }
+    else{
+
+        signalEl.classList.add("wait");
 
     }
 
-    else if(a.trend.dir==="down"){
+
+    let reasons = [];
+
+
+    reasons.push(
+        "Trend: <b>" +
+        a.trend +
+        "</b>"
+    );
+
+
+    reasons.push(
+        "Candle: <b>" +
+        a.pattern +
+        "</b>"
+    );
+
+
+    reasons.push(
+        "MA20: <b>" +
+        formatPrice(a.ma20) +
+        "</b>"
+    );
+
+
+    reasons.push(
+        "MA50: <b>" +
+        formatPrice(a.ma50) +
+        "</b>"
+    );
+
+
+    if(a.breakout){
 
         reasons.push(
-            `<div class="bad">
-                • Trend: DOWNTREND — ${a.trend.why}
-            </div>`
+            "✅ Breakout resistance terdeteksi"
         );
 
     }
-
     else{
 
         reasons.push(
-            `<div class="neutral">
-                • Trend: SIDEWAYS — ${a.trend.why}
-            </div>`
+            "⏳ Belum ada breakout resistance"
         );
 
     }
 
 
-    reasons.push(
-        `<div>
-            • ${a.breakoutText}
-        </div>`
-    );
-
-
-    reasons.push(
-        `<div>
-            • ${a.retestText}
-        </div>`
-    );
-
-
-    reasons.push(
-        `<div>
-            • Candle terakhir: ${a.candle}
-        </div>`
-    );
-
-
-    if(a.bullEng){
+    if(a.breakdown){
 
         reasons.push(
-            `<div class="ok">
-                • Bullish Engulfing terdeteksi.
-            </div>`
+            "🔻 Breakdown support terdeteksi"
         );
 
     }
 
 
-    if(a.bearEng){
+    if(a.buyRetest){
 
         reasons.push(
-            `<div class="bad">
-                • Bearish Engulfing terdeteksi.
-            </div>`
+            "✅ Retest untuk BUY terdeteksi"
         );
 
     }
 
 
-    if(a.bullPin){
+    if(a.sellRetest){
 
         reasons.push(
-            `<div class="ok">
-                • Bullish Pin Bar terdeteksi.
-            </div>`
+            "✅ Retest untuk SELL terdeteksi"
         );
 
     }
 
 
-    if(a.bearPin){
+    if(a.signal === "BUY"){
 
         reasons.push(
-            `<div class="bad">
-                • Bearish Pin Bar terdeteksi.
-            </div>`
+            "🟢 Kondisi BUY memenuhi skor minimum."
         );
 
     }
-
-
-    if(a.nearSupport){
+    else if(a.signal === "SELL"){
 
         reasons.push(
-            `<div>
-                • Harga dekat SUPPORT.
-            </div>`
+            "🔴 Kondisi SELL memenuhi skor minimum."
         );
 
     }
-
-
-    if(a.nearResistance){
-
-        reasons.push(
-            `<div>
-                • Harga dekat RESISTANCE.
-            </div>`
-        );
-
-    }
-
-
-    /*
-       Hasil akhir
-    */
-
-    if(a.signal==="BUY"){
-
-        reasons.push(
-            `<div class="ok">
-                ✅ BUY — syarat utama terpenuhi.
-            </div>`
-        );
-
-    }
-
-    else if(a.signal==="SELL"){
-
-        reasons.push(
-            `<div class="bad">
-                🔻 SELL — syarat utama terpenuhi.
-            </div>`
-        );
-
-    }
-
     else{
 
         reasons.push(
-            `<div class="neutral">
-                ⏳ WAIT — belum semua syarat entry terpenuhi.
-            </div>`
+            "🟡 Belum cukup konfirmasi. WAIT."
         );
 
     }
 
 
-    document.getElementById(
-        "reasons"
-    ).innerHTML=
-        reasons.join("");
-
-
-    /* =====================================================
-       DETAIL
-    ===================================================== */
-
-    document.getElementById(
-        "details"
-    ).innerHTML=`
-
-        <div>
-            • Candle dianalisis:
-            <b>candle yang sudah CLOSE</b>
-        </div>
-
-        <div>
-            • Jumlah candle:
-            <b>${a.candles}</b>
-        </div>
-
-        <div>
-            • Trend:
-            <b>${a.trend.why}</b>
-        </div>
-
-        <div>
-            • Support:
-            <b>${fmt(a.support)}</b>
-        </div>
-
-        <div>
-            • Resistance:
-            <b>${fmt(a.resistance)}</b>
-        </div>
-
-        <div>
-            • Breakout:
-            <b>${a.breakoutText}</b>
-        </div>
-
-        <div>
-            • Retest:
-            <b>${a.retestText}</b>
-        </div>
-
-        <div>
-            • Candle:
-            <b>${a.candle}</b>
-        </div>
-
-        <div>
-            • ATR/range rata-rata:
-            <b>${fmt(a.atr)}</b>
-        </div>
-
-        <div>
-            • Formula:
-            <b>
-            Trend 2 +
-            Breakout 3 +
-            Retest 2 +
-            Candle 2 +
-            S/R 1 = 10
-            </b>
-        </div>
-
-    `;
+    $("reason").innerHTML =
+        reasons.join("<br>");
 
 }
 
 
 /* =========================================================
-   REFRESH
+   INITIAL LOAD
 ========================================================= */
 
-async function refresh(){
-
-    setText(
-        "status",
-        "⏳ Mengambil data XAUUSD "+currentTF+"..."
-    );
-
-
-    try{
-
-        const json=
-            await loadCandles();
-
-
-        const analysis=
-            analyze(
-                json.candles
-            );
-
-
-        render(
-            analysis
-        );
-
-
-        setText(
-            "status",
-
-            "✅ Update berhasil • "+
-            new Date().toLocaleTimeString(
-                "id-ID"
-            )+
-            " • "+
-            (json.symbol || "XAUUSD")+
-            " • TF "+
-            (json.timeframe || currentTF)
-
-        );
-
-    }
-
-
-    catch(error){
-
-        console.error(
-            "XAUUSD ERROR:",
-            error
-        );
-
-
-        setText(
-            "status",
-
-            "❌ Gagal mengambil data: "+
-            (error.message || error)
-
-        );
-
-
-        setText(
-            "price",
-            "—"
-        );
-
-        setText(
-            "trend",
-            "—"
-        );
-
-        setText(
-            "support",
-            "—"
-        );
-
-        setText(
-            "resistance",
-            "—"
-        );
-
-
-        setText(
-            "signal",
-            "WAIT"
-        );
-
-
-        setText(
-            "score",
-            "BUY 0/10 • SELL 0/10"
-        );
-
-    }
-
-}
+loadData();
 
 
 /* =========================================================
-   TIMEFRAME BUTTON
+   AUTO REFRESH
 ========================================================= */
 
-document
-.querySelectorAll("[data-tf]")
-.forEach(button=>{
+setInterval(() => {
 
-    button.addEventListener(
-        "click",
-        ()=>{
+    loadData();
 
-            document
-            .querySelectorAll(
-                "[data-tf]"
-            )
-            .forEach(
-                x=>
-                x.classList.remove(
-                    "active"
-                )
-            );
+}, 60000);
 
 
-            button.classList.add(
-                "active"
-            );
+/* =========================================================
+   VISIBILITY REFRESH
+========================================================= */
 
+document.addEventListener(
+    "visibilitychange",
+    () => {
 
-            currentTF=
-                button.dataset.tf;
+        if(
+            document.visibilityState === "visible"
+        ){
 
-
-            tvInterval=
-                TF[currentTF].tv;
-
-
-            /*
-               Buat ulang chart
-            */
-
-            createTradingView();
-
-
-            /*
-               Ambil candle baru
-            */
-
-            refresh();
+            loadData();
 
         }
-    );
 
-});
-
-
-/* =========================================================
-   START
-========================================================= */
-
-createTradingView();
-
-refresh();
-
-
-/*
-   Update analisis setiap 60 detik
-*/
-
-setInterval(
-    refresh,
-    60000
+    }
 );
 
 </script>
